@@ -1,3 +1,6 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Builder;
+
 namespace Swizzle
 {
     public class Program
@@ -9,6 +12,16 @@ namespace Swizzle
             // Add services to the container.
             builder.Services.AddControllersWithViews()
                 .AddRazorRuntimeCompilation();
+             
+            builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>
+                {
+                    options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
+                    options.SlidingExpiration = true;
+                    options.AccessDeniedPath = "/Forbidden/";
+                    options.LogoutPath = "/Authentication/Logout";
+                    options.LoginPath = "/Authentication/Logout";
+                });
 
             var app = builder.Build();
 
@@ -25,7 +38,15 @@ namespace Swizzle
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
+            var cookiePolicyOptions = new CookiePolicyOptions
+            {
+                MinimumSameSitePolicy = SameSiteMode.Lax,   // Allows cross-origin auth schemes like OAuth2
+            };
+            app.UseCookiePolicy(cookiePolicyOptions);
+
+            app.MapDefaultControllerRoute();
 
             app.MapControllerRoute(
                 name: "default",
