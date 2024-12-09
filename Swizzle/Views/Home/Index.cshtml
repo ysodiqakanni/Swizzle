@@ -1,9 +1,67 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@page "/"
+@using Microsoft.AspNetCore.Components.Web
 
-<div class="text-center">
-    <h1 class="display-4">Welcome to Swizzle!</h1>
+<!-- Page Title -->
+<title>Home Page</title>
 
-    <p>Let's go!</p>
+<!-- Main Container -->
+<div class="container-fluid py-4">
+    <div class="row" id="main-content">
+        <!-- Communities Sidebar -->
+        <div class="col-lg-3 col-md-12 mb-3">
+            <div class="sidebar p-3">
+                <h3 class="mb-3">Communities</h3>
+                <ul class="list-unstyled" id="communities-list">
+                    <!-- Communities will be dynamically added here -->
+                </ul>
+            </div>
+        </div>
+
+        <!-- Posts Container -->
+        <div class="col-lg-6 col-md-12 mb-3" id="posts-container">
+            <!-- Posts will be dynamically added here -->
+        </div>
+
+        <!-- Recent Posts Sidebar -->
+        <div class="col-lg-3 col-md-12 mb-3">
+            <div class="recent-posts p-3">
+                <h3 class="mb-3">Recent Posts</h3>
+                <ul class="list-unstyled" id="recent-posts-list">
+                    <!-- Recent posts will be dynamically added here -->
+                </ul>
+            </div>
+        </div>
+    </div>
 </div>
+
+<!-- Share Modal -->
+<div class="modal fade" id="shareModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Share Post</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" id="share-link" readonly>
+                    <button class="btn btn-outline-secondary" type="button" id="copy-link">
+                        <i class="fas fa-copy"></i> Copy
+                    </button>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <button class="btn btn-outline-primary share-platform" data-platform="twitter">
+                        <i class="fab fa-twitter"></i> Twitter
+                    </button>
+                    <button class="btn btn-outline-primary share-platform" data-platform="facebook">
+                        <i class="fab fa-facebook"></i> Facebook
+                    </button>
+                    <button class="btn btn-outline-primary share-platform" data-platform="reddit">
+                        <i class="fab fa-reddit"></i> Reddit
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
