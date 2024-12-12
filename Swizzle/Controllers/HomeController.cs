@@ -23,6 +23,11 @@ namespace Swizzle.Controllers
             return View();
         }
 
+        public IActionResult SinglePage()
+        {
+            return View();
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
