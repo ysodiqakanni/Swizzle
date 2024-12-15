@@ -1,170 +1,290 @@
 ﻿:root {
-    --bg-primary: #f0f2f5;
-    --bg-secondary: #ffffff;
-    --text-primary: #1a1a1b;
-    --text-secondary: #7c7c7c;
-    --accent-color: #0079d3;
-    --hover-color: #3394dc;
-    --border-color: #edeff1;
-}
-
-[data-theme='dark'] {
-    --bg-primary: #1a1a1b;
-    --bg-secondary: #272729;
-    --text-primary: #d7dadc;
-    --text-secondary: #818384;
-    --accent-color: #4da6ff;
-    --hover-color: #66b3ff;
-    --border-color: #343436;
+    --reddit-orange: #FF4500;
+    --reddit-blue: #0079D3;
+    --reddit-background: #DAE0E6;
 }
 
 body {
-    background-color: var(--bg-primary);
-    color: var(--text-primary);
-    transition: background-color 0.3s, color 0.3s;
+    background-color: var(--reddit-background);
+    font-family: 'IBM Plex Sans', Arial, sans-serif;
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 240px;
+    background-color: white;
+    box-shadow: 1px 0 10px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+    z-index: 1000;
+}
+
+.main-content {
+    margin-left: 200px;
+    padding-top: 60px;
 }
 
 .navbar {
-    background-color: var(--bg-secondary) !important;
+    position: fixed;
+    top: 0;
+    left: 240px;
+    right: 0;
+    z-index: 999;
+    background-color: white;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.search-bar {
-    flex-grow: 1;
+.post-card {
+    background-color: white;
+    border-radius: 4px;
+    margin-bottom: 16px;
+    border: 1px solid #ccc;
 }
-
-    .search-bar input {
-        width: 100%;
-        border: 1px solid var(--border-color);
-        border-radius: 20px;
-        background-color: var(--bg-primary);
-        color: var(--text-primary);
-    }
-
-        .search-bar input:focus {
-            outline: none;
-            border-color: var(--accent-color);
-            box-shadow: 0 0 0 2px rgba(0, 121, 211, 0.2);
-        }
-
-.theme-toggle {
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: var(--text-primary);
-}
-
-.sidebar,
-.recent-posts {
-    background-color: var(--bg-secondary);
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-}
-
-.community-item,
-.recent-post-item {
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-    .community-item:hover,
-    .recent-post-item:hover {
-        background-color: var(--bg-primary);
-    }
-
-.post {
-    background-color: var(--bg-secondary);
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    transition: box-shadow 0.3s;
-}
-
-    .post:hover {
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
 
 .vote-section {
+    background-color: #F8F9FA;
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-right: 15px;
+    padding: 8px;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
 }
 
 .vote-btn {
     background: none;
     border: none;
+    color: #878A8C;
+    font-size: 16px;
     cursor: pointer;
-    color: var(--text-secondary);
 }
 
     .vote-btn:hover {
-        color: var(--accent-color);
+        color: var(--reddit-orange);
     }
 
-@media (max-width: 768px) {
-    .main-container {
-        flex-direction: column;
+    .vote-btn.upvoted {
+        color: var(--reddit-orange);
     }
 
-    .sidebar,
-    .recent-posts {
-        width: 100%;
-        margin-bottom: 15px;
-        position: static;
+    .vote-btn.downvoted {
+        color: var(--reddit-blue);
     }
+
+.post-thumbnail {
+    max-width: 100px;
+    max-height: 100px;
+    object-fit: cover;
+    border-radius: 4px;
 }
 
-.post-detailed-view {
-    max-width: 800px;
-    margin: 0 auto;
-    background-color: var(--bg-secondary);
-    padding: 20px;
-    border-radius: 8px;
-}
-
-.comments-section {
-    margin-top: 20px;
-}
-
-.comment {
-    background-color: var(--bg-primary);
-    border-radius: 8px;
-    padding: 15px;
-    margin-bottom: 15px;
-}
-
-.share-dropdown {
-    position: relative;
-}
-
-.share-options {
-    position: absolute;
-    right: 0;
-    top: 100%;
-    background-color: var(--bg-secondary);
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    padding: 10px;
-    z-index: 1000;
-    min-width: 200px;
-}
-
-.share-option {
+.post-actions {
     display: flex;
     align-items: center;
-    padding: 10px;
-    cursor: pointer;
-    transition: background-color 0.3s;
+    color: #878A8C;
 }
 
-    .share-option:hover {
-        background-color: var(--bg-primary);
+.post-action-btn {
+    display: flex;
+    align-items: center;
+    margin-right: 12px;
+    cursor: pointer;
+}
+
+    .post-action-btn i {
+        margin-right: 5px;
     }
 
-    .share-option i {
+.sidebar-menu {
+    list-style: none;
+    padding: 0;
+}
+
+    .sidebar-menu li {
+        padding: 10px 15px;
+        cursor: pointer;
+        transition: background-color 0.2s;
+    }
+
+        .sidebar-menu li:hover {
+            background-color: #F8F9FA;
+        }
+
+        .sidebar-menu li i {
+            margin-right: 10px;
+            color: #878A8C;
+        }
+
+/* Mobile Responsiveness Adjustments */
+@media (max-width: 768px) {
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: -240px;
+        width: 240px;
+        height: 100vh;
+        transition: left 0.3s ease;
+        z-index: 1050;
+    }
+
+        .sidebar.show {
+            left: 0;
+        }
+
+    .main-content {
+        margin-left: 0;
+        padding-top: 60px;
+    }
+
+    .navbar {
+        left: 0;
+    }
+
+    .mobile-sidebar-toggle {
+        display: block !important;
+    }
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 240px;
+    background-color: white;
+    box-shadow: 1px 0 10px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+    z-index: 1000;
+    transition: left 0.3s ease;
+}
+
+.main-content {
+    margin-left: 240px;
+    padding-top: 60px;
+}
+
+.row {
+    overflow: hidden !important;
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 240px;
+    right: 0;
+    z-index: 999;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.mobile-sidebar-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: #333;
+}
+
+.post-card {
+    background-color: white;
+    border-radius: 4px;
+    margin-bottom: 16px;
+    border: 1px solid #ccc;
+}
+
+.vote-section {
+    background-color: #F8F9FA;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 8px;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+
+.vote-btn {
+    background: none;
+    border: none;
+    color: #878A8C;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+    .vote-btn:hover {
+        color: var(--reddit-orange);
+    }
+
+    .vote-btn.upvoted {
+        color: var(--reddit-orange);
+    }
+
+    .vote-btn.downvoted {
+        color: var(--reddit-blue);
+    }
+
+.post-thumbnail {
+    max-width: 100px;
+    max-height: 100px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.post-actions {
+    display: flex;
+    align-items: center;
+    color: #878A8C;
+}
+
+.post-action-btn {
+    display: flex;
+    align-items: center;
+    margin-right: 12px;
+    cursor: pointer;
+}
+
+    .post-action-btn i {
+        margin-right: 5px;
+    }
+
+.sidebar-menu {
+    list-style: none;
+    padding: 0;
+}
+
+    .sidebar-menu li {
+        padding: 10px 15px;
+        cursor: pointer;
+        transition: background-color 0.2s;
+    }
+
+        .sidebar-menu li:hover {
+            background-color: #F8F9FA;
+        }
+
+        .sidebar-menu li i {
+            margin-right: 10px;
+            color: #878A8C;
+        }
+
+.popular-communities {
+    background-color: white;
+    border-radius: 4px;
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.community-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+    .community-item img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
         margin-right: 10px;
     }
-
-.modal-backdrop {
-    background-color: rgba(0, 0, 0, 0.5);
-}
