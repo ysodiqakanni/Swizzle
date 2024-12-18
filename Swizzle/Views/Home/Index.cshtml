@@ -19,6 +19,10 @@
                 <img src="https://picsum.photos/120/40" alt="Reddit Logo">
             </a>
 
+            <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
             <div class="d-flex flex-grow-1 justify-content-center">
                 <div class="search-bar">
                     <input type="search" class="form-control" placeholder="Search Reddit">
@@ -31,6 +35,60 @@
             </div>
         </div>
     </nav>
+
+    <!-- Add this after the navbar -->
+<div class="offcanvas offcanvas-start" tabindex="-1" id="sidebarMenu">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title">Menu</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+    </div>
+    <div class="offcanvas-body">
+        <!-- Mobile-only login buttons -->
+        <div class="d-lg-none mb-3">
+            <button class="btn btn-outline-primary w-100 mb-2">Log In</button>
+            <button class="btn btn-primary w-100">Sign Up</button>
+        </div>
+        
+        <!-- Sidebar content (will be moved here on mobile) -->
+        <div class="sidebar-content">
+            <!-- Copy the entire left-sidebar content here -->
+                <!-- Left Sidebar -->
+                <aside class="left-sidebar">
+                    <div class="sidebar-section">
+                        <div class="topic-group">
+                            <h6>RECENT</h6>
+                            <div class="topic-item">
+                                <i class="fas fa-code"></i>
+                                r/programming
+                            </div>
+                            <div class="topic-item">
+                                <i class="fas fa-laptop-code"></i>
+                                r/webdev
+                            </div>
+                            <div class="topic-item">r/programming</div>
+                            <div class="topic-item">r/webdev</div>
+                            <div class="topic-item">r/dotnet</div>
+                        </div>
+
+                        <div class="topic-group">
+                            <h6>TOPICS</h6>
+                            <div class="topic-item">Gaming</div>
+                            <div class="topic-item">Sports</div>
+                            <div class="topic-item">Technology</div>
+                        </div>
+
+                        <div class="topic-group">
+                            <h6>RESOURCES</h6>
+                            <div class="topic-item">Community Rules</div>
+                            <div class="topic-item">Premium</div>
+                            <div class="topic-item">Help Center</div>
+                        </div>
+                    </div>
+                </aside>
+
+        </div>
+    </div>
+</div>
 
     <!-- Main Container -->
     <div class="main-container">
