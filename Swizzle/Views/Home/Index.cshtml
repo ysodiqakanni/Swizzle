@@ -1,9 +1,98 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    Layout = null;
 }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 
-<div class="text-center">
-    <h1 class="display-4">Welcome to Swizzle!</h1>
+    <link href="~/css/goswizzle.css" rel="stylesheet" />
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="https://picsum.photos/120/40" alt="Reddit Logo">
+            </a>
 
-    <p>Let's go!</p>
-</div>
+            <div class="d-flex flex-grow-1 justify-content-center">
+                <div class="search-bar">
+                    <input type="search" class="form-control" placeholder="Search Reddit">
+                </div>
+            </div>
+
+            <div class="d-flex align-items-center gap-2">
+                <button class="btn btn-outline-primary">Log In</button>
+                <button class="btn btn-primary">Sign Up</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Left Sidebar -->
+        <aside class="left-sidebar">
+            <div class="sidebar-section">
+                <div class="topic-group">
+                    <h6>RECENT</h6>
+                    <div class="topic-item">
+                        <i class="fas fa-code"></i>
+                        r/programming
+                    </div>
+                    <div class="topic-item">
+                        <i class="fas fa-laptop-code"></i>
+                        r/webdev
+                    </div>
+                    <div class="topic-item">r/programming</div>
+                    <div class="topic-item">r/webdev</div>
+                    <div class="topic-item">r/dotnet</div>
+                </div>
+
+                <div class="topic-group">
+                    <h6>TOPICS</h6>
+                    <div class="topic-item">Gaming</div>
+                    <div class="topic-item">Sports</div>
+                    <div class="topic-item">Technology</div>
+                </div>
+
+                <div class="topic-group">
+                    <h6>RESOURCES</h6>
+                    <div class="topic-item">Community Rules</div>
+                    <div class="topic-item">Premium</div>
+                    <div class="topic-item">Help Center</div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="sidebar-section">
+                <h5>Main Content Area</h5>
+                <p>This is where posts and comments will be rendered.</p>
+            </div>
+        </main>
+
+        <!-- Right Sidebar -->
+        <aside class="right-sidebar">
+            <div class="sidebar-section">
+                <div class="ad-container">
+                    Advertisement Space
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <h6 class="mb-3">Recommended Posts</h6>
+                <div class="topic-item">Trending Post #1</div>
+                <div class="topic-item">Trending Post #2</div>
+                <div class="topic-item">Trending Post #3</div>
+            </div>
+        </aside>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
