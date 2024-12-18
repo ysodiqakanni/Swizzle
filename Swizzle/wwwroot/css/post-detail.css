@@ -4,9 +4,9 @@
     max-width: 100%;
 }
 
-.post-detail {
+/*.post-detail {
     padding: 16px;
-}
+}*/
 
 .post-detail-title {
     font-size: 24px;
@@ -106,5 +106,38 @@
     .comment-replies {
         margin-left: 8px;
         padding-left: 8px;
+    }
+}
+
+.post-detail {
+    display: flex;
+    gap: 8px;
+    padding: 16px;
+}
+
+.vote-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 40px;
+    padding-top: 8px;
+    flex-shrink: 0; /* Prevent vote column from shrinking */
+}
+
+.post-content {
+    flex-grow: 1;
+    min-width: 0; /* Prevent content from overflowing */
+    word-wrap: break-word; /* Ensure long words don't break layout */
+}
+
+/* Responsive adjustments if needed */
+@media (max-width: 640px) {
+    .post-detail {
+        padding: 8px;
+        gap: 4px;
+    }
+
+    .vote-column {
+        min-width: 32px;
     }
 }
