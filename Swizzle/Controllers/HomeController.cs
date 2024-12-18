@@ -23,6 +23,11 @@ namespace Swizzle.Controllers
             return View();
         }
 
+        public IActionResult Post()
+        {
+            return View();
+        }
+
 
         public IActionResult Privacy()
         {
