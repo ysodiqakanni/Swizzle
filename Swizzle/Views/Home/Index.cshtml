@@ -16,7 +16,7 @@
     <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
-                <img src="https://picsum.photos/120/40" alt="Reddit Logo">
+                <img src="https://picsum.photos/120/30" alt="Reddit Logo">
             </a>
 
             <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMenu">
@@ -127,11 +127,117 @@
         </aside>
 
         <!-- Main Content -->
-        <main class="main-content">
+      @*   <main class="main-content">
             <div class="sidebar-section">
                 <h5>Main Content Area</h5>
                 <p>This is where posts and comments will be rendered.</p>
             </div>
+        </main> *@
+
+        <main class="main-content">
+            <!-- Post Card -->
+            <article class="post-card sidebar-section mb-3">
+                <!-- Vote Column -->
+                <div class="vote-column">
+                    <button class="vote-btn upvote">
+                        <i class="fas fa-arrow-up"></i>
+                    </button>
+                    <span class="vote-count">14.2k</span>
+                    <button class="vote-btn downvote">
+                        <i class="fas fa-arrow-down"></i>
+                    </button>
+                </div>
+
+                <!-- Post Content -->
+                <div class="post-content">
+                    <!-- Post Header -->
+                    <div class="post-header">
+                        <a href="#" class="subreddit-link">r/programming</a>
+                        <span class="post-metadata">
+                            • Posted by <a href="#" class="user-link">u/developer123</a>
+                            <span class="post-time">8 hours ago</span>
+                        </span>
+                    </div>
+
+                    <!-- Post Title -->
+                    <h3 class="post-title">
+                        <a href="#">Building a Reddit Clone with .NET MVC and Bootstrap</a>
+                    </h3>
+
+                    <!-- Post Text/Media -->
+                    <div class="post-media">
+                        <img src="https://picsum.photos/400/300" alt="Post thumbnail" class="post-thumbnail">
+                    </div>
+
+                    <!-- Post Footer -->
+                    <div class="post-footer">
+                        <button class="post-action-btn">
+                            <i class="fas fa-comment-alt"></i>
+                            <span>128 Comments</span>
+                        </button>
+                        <button class="post-action-btn">
+                            <i class="fas fa-share"></i>
+                            <span>Share</span>
+                        </button>
+                        <button class="post-action-btn">
+                            <i class="fas fa-bookmark"></i>
+                            <span>Save</span>
+                        </button>
+                        <button class="post-action-btn">
+                            <i class="fas fa-ellipsis-h"></i>
+                        </button>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Second Post (Different Type) -->
+            <article class="post-card sidebar-section mb-3">
+                <div class="vote-column">
+                    <button class="vote-btn upvote">
+                        <i class="fas fa-arrow-up"></i>
+                    </button>
+                    <span class="vote-count">5.9k</span>
+                    <button class="vote-btn downvote">
+                        <i class="fas fa-arrow-down"></i>
+                    </button>
+                </div>
+
+                <div class="post-content">
+                    <div class="post-header">
+                        <a href="#" class="subreddit-link">r/webdev</a>
+                        <span class="post-metadata">
+                            • Posted by <a href="#" class="user-link">u/webmaster</a>
+                            <span class="post-time">2 hours ago</span>
+                        </span>
+                    </div>
+
+                    <h3 class="post-title">
+                        <a href="#">10 Must-Know CSS Grid Techniques for Modern Layouts</a>
+                    </h3>
+
+                    <div class="post-text">
+                        <p>Here's a quick guide to using CSS Grid effectively in your projects. I've been using these techniques in production...</p>
+                    </div>
+
+                    <div class="post-footer">
+                        <button class="post-action-btn">
+                            <i class="fas fa-comment-alt"></i>
+                            <span>45 Comments</span>
+                        </button>
+                        <button class="post-action-btn">
+                            <i class="fas fa-share"></i>
+                            <span>Share</span>
+                        </button>
+                        <button class="post-action-btn">
+                            <i class="fas fa-bookmark"></i>
+                            <span>Save</span>
+                        </button>
+                        <button class="post-action-btn">
+                            <i class="fas fa-ellipsis-h"></i>
+                        </button>
+                    </div>
+                </div>
+            </article>
         </main>
 
         <!-- Right Sidebar -->
