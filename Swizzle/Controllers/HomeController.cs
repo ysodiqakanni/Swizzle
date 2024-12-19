@@ -18,6 +18,21 @@ namespace Swizzle.Controllers
             return View();
         }
 
+        public IActionResult Community()
+        {
+            return View();
+        }
+
+        public IActionResult Post()
+        {
+            return View();
+        }
+        public IActionResult AddPost()
+        {
+            return View();
+        }
+
+
         public IActionResult Privacy()
         {
             return View();

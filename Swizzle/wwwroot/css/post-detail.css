@@ -1,0 +1,143 @@
+﻿
+/* Post Detail Specific Styles */
+.post-detail-container {
+    max-width: 100%;
+}
+
+/*.post-detail {
+    padding: 16px;
+}*/
+
+.post-detail-title {
+    font-size: 24px;
+    font-weight: 500;
+    margin-bottom: 16px;
+}
+
+.post-body {
+    font-size: 14px;
+    line-height: 1.6;
+    margin: 16px 0;
+}
+
+/* Comments Section Styles */
+.comments-section {
+    padding: 16px;
+}
+
+.comment-container {
+    display: flex;
+    gap: 8px;
+    padding: 8px 0;
+}
+
+.vote-column.small {
+    min-width: 24px;
+}
+
+    .vote-column.small .vote-count {
+        font-size: 11px;
+    }
+
+.comment-content {
+    flex-grow: 1;
+    min-width: 0;
+}
+
+.comment-header {
+    font-size: 12px;
+    margin-bottom: 4px;
+}
+
+.comment-time {
+    color: #787c7e;
+    margin-left: 4px;
+}
+
+.op-tag {
+    background-color: #0079D3;
+    color: white;
+    font-size: 10px;
+    padding: 0 4px;
+    border-radius: 2px;
+    margin: 0 4px;
+}
+
+.comment-body {
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.comment-actions {
+    display: flex;
+    gap: 4px;
+    margin-top: 4px;
+}
+
+.comment-action-btn {
+    background: none;
+    border: none;
+    color: #878A8C;
+    font-size: 12px;
+    padding: 4px 8px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+    border-radius: 2px;
+}
+
+    .comment-action-btn:hover {
+        background-color: #f8f9fa;
+    }
+
+.comment-replies {
+    margin-left: 16px;
+    padding-left: 16px;
+    border-left: 2px solid #edeff1;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .post-detail-title {
+        font-size: 20px;
+    }
+
+    .comment-replies {
+        margin-left: 8px;
+        padding-left: 8px;
+    }
+}
+
+.post-detail {
+    display: flex;
+    gap: 8px;
+    padding: 16px;
+}
+
+.vote-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 40px;
+    padding-top: 8px;
+    flex-shrink: 0; /* Prevent vote column from shrinking */
+}
+
+.post-content {
+    flex-grow: 1;
+    min-width: 0; /* Prevent content from overflowing */
+    word-wrap: break-word; /* Ensure long words don't break layout */
+}
+
+/* Responsive adjustments if needed */
+@media (max-width: 640px) {
+    .post-detail {
+        padding: 8px;
+        gap: 4px;
+    }
+
+    .vote-column {
+        min-width: 32px;
+    }
+}

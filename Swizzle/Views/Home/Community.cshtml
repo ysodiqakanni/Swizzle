@@ -1,0 +1,488 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
+    <link href="~/css/goswizzle.css" rel="stylesheet" />
+
+    <style>
+        /* Community Header Styles */
+        .community-banner {
+            height: 192px;
+            background-color: #33a8ff;
+            overflow: hidden;
+            margin: -16px -16px 0;
+        }
+
+        .banner-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .community-info-card {
+            margin-top: -64px;
+            position: relative;
+            border: 1px solid #ccc;
+        }
+
+        .community-title-section {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .community-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 4px solid white;
+            background-color: white;
+        }
+
+        .community-title-content {
+            flex-grow: 1;
+            padding-top: 8px;
+        }
+
+        .community-name {
+            font-size: 28px;
+            font-weight: 700;
+            margin: 0;
+            line-height: 32px;
+        }
+
+        .community-handle {
+            font-size: 14px;
+            color: #7c7c7c;
+            margin: 0;
+        }
+
+        .join-button {
+            margin-top: 8px;
+        }
+
+        .community-stats {
+            display: flex;
+            gap: 32px;
+            padding: 16px 0;
+            border-bottom: 1px solid #edeff1;
+            margin-bottom: 16px;
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stat-value {
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #7c7c7c;
+        }
+
+        .community-description {
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 16px;
+        }
+
+        .community-metadata {
+            font-size: 14px;
+            color: #7c7c7c;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Responsive adjustments */
+        @@media (max-width: 768px) {
+            .community-banner
+
+        {
+            height: 128px;
+        }
+
+        .community-info-card {
+            margin-top: -32px;
+        }
+
+        .community-icon {
+            width: 64px;
+            height: 64px;
+        }
+
+        .community-name {
+            font-size: 20px;
+            line-height: 24px;
+        }
+
+        .community-stats {
+            gap: 16px;
+        }
+
+            .community-actions {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            }
+
+            .create-post-btn {
+                display: flex;
+                align-items: center;
+            }
+
+            .btn-icon {
+                width: 32px;
+                height: 32px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: none;
+                border: 1px solid #edeff1;
+                color: #878A8C;
+                padding: 0;
+            }
+
+                .btn-icon:hover {
+                    background-color: #f8f9fa;
+                    color: #1c1c1c;
+                }
+            /* Responsive adjustments */
+        @@media (max-width: 768px) {
+                .community-actions
+
+        {
+            flex-wrap: wrap;
+            gap: 4px;
+        }
+
+        .create-post-btn {
+            order: -1;
+            width: 100%;
+            margin-bottom: 8px;
+        }
+
+        .community-title-section {
+            flex-wrap: wrap;
+        }
+
+        }
+    </style>
+
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="https://picsum.photos/120/30" alt="Reddit Logo">
+            </a>
+
+            <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="d-flex flex-grow-1 justify-content-center">
+                <div class="search-bar">
+                    <input type="search" class="form-control" placeholder="Search Reddit">
+                </div>
+            </div>
+
+            <div class="d-flex align-items-center gap-2">
+                <button class="btn btn-outline-primary">Log In</button>
+                <button class="btn btn-primary">Sign Up</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Add this after the navbar -->
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="sidebarMenu">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title">Menu</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+        </div>
+        <div class="offcanvas-body">
+            <!-- Mobile-only login buttons -->
+            <div class="d-lg-none mb-3">
+                <button class="btn btn-outline-primary w-100 mb-2">Log In</button>
+                <button class="btn btn-primary w-100">Sign Up</button>
+            </div>
+
+            <!-- Sidebar content (will be moved here on mobile) -->
+            <div class="sidebar-content">
+                <!-- Copy the entire left-sidebar content here -->
+                <!-- Left Sidebar -->
+                <aside class="left-sidebar">
+                    <div class="sidebar-section">
+                        <div class="topic-group">
+                            <h6>RECENT</h6>
+                            <div class="topic-item">
+                                <i class="fas fa-code"></i>
+                                r/programming
+                            </div>
+                            <div class="topic-item">
+                                <i class="fas fa-laptop-code"></i>
+                                r/webdev
+                            </div>
+                            <div class="topic-item">r/programming</div>
+                            <div class="topic-item">r/webdev</div>
+                            <div class="topic-item">r/dotnet</div>
+                        </div>
+
+                        <div class="topic-group">
+                            <h6>TOPICS</h6>
+                            <div class="topic-item">Gaming</div>
+                            <div class="topic-item">Sports</div>
+                            <div class="topic-item">Technology</div>
+                        </div>
+
+                        <div class="topic-group">
+                            <h6>RESOURCES</h6>
+                            <div class="topic-item">Community Rules</div>
+                            <div class="topic-item">Premium</div>
+                            <div class="topic-item">Help Center</div>
+                        </div>
+                    </div>
+                </aside>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Left Sidebar -->
+        <aside class="left-sidebar">
+            <div class="sidebar-section">
+                <div class="topic-group">
+                    <h6>RECENT</h6>
+                    <div class="topic-item">
+                        <i class="fas fa-code"></i>
+                        r/programming
+                    </div>
+                    <div class="topic-item">
+                        <i class="fas fa-laptop-code"></i>
+                        r/webdev
+                    </div>
+                    <div class="topic-item">r/programming</div>
+                    <div class="topic-item">r/webdev</div>
+                    <div class="topic-item">r/dotnet</div>
+                </div>
+
+                <div class="topic-group">
+                    <h6>TOPICS</h6>
+                    <div class="topic-item">Gaming</div>
+                    <div class="topic-item">Sports</div>
+                    <div class="topic-item">Technology</div>
+                </div>
+
+                <div class="topic-group">
+                    <h6>RESOURCES</h6>
+                    <div class="topic-item">Community Rules</div>
+                    <div class="topic-item">Premium</div>
+                    <div class="topic-item">Help Center</div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        @*   <main class="main-content">
+            <div class="sidebar-section">
+                <h5>Main Content Area</h5>
+                <p>This is where posts and comments will be rendered.</p>
+            </div>
+        </main> *@
+
+        <main class="main-content">
+
+            <!-- Add this before the post listings in main-content -->
+            <div class="community-header mb-4">
+                <!-- Banner -->
+                <div class="community-banner">
+                    <img src="https://picsum.photos/1200/192" alt="Community Banner" class="banner-img">
+                </div>
+
+                <!-- Community Info Card -->
+                <div class="community-info-card sidebar-section">
+                    <div class="community-title-section">
+                        <img src="https://picsum.photos/80/80" alt="Community Icon" class="community-icon">
+                        <div class="community-title-content">
+                            <h1 class="community-name">r/programming</h1>
+                            <p class="community-handle">r/programming</p>
+                        </div>
+                        <div class="community-actions">
+                            <button class="btn btn-primary create-post-btn">
+                                <i class="fas fa-plus me-2"></i>Create Post
+                            </button>
+                            <button class="btn btn-primary join-button">Join</button>
+                            <button class="btn btn-icon" title="Notifications">
+                                <i class="fas fa-bell"></i>
+                            </button>
+                            <button class="btn btn-icon" title="More Options">
+                                <i class="fas fa-ellipsis-h"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="community-stats">
+                        <div class="stat-item">
+                            <span class="stat-value">4.2m</span>
+                            <span class="stat-label">Members</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value">8.4k</span>
+                            <span class="stat-label">Online</span>
+                        </div>
+                    </div>
+
+                    <p class="community-description">
+                        Computer Programming: A place for programming and tech discussions.
+                        News, articles, and discussions about programming, software development,
+                        and related topics.
+                    </p>
+
+                    <div class="community-metadata">
+                        <i class="fas fa-birthday-cake"></i>
+                        <span>Created Jan 25, 2008</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Post Card -->
+            <article class="post-card sidebar-section mb-3">
+                <!-- Vote Column -->
+                <div class="vote-column">
+                    <button class="vote-btn upvote">
+                        <i class="fas fa-arrow-up"></i>
+                    </button>
+                    <span class="vote-count">14.2k</span>
+                    <button class="vote-btn downvote">
+                        <i class="fas fa-arrow-down"></i>
+                    </button>
+                </div>
+
+                <!-- Post Content -->
+                <div class="post-content">
+                    <!-- Post Header -->
+                    <div class="post-header">
+                        <a href="#" class="subreddit-link">r/programming</a>
+                        <span class="post-metadata">
+                            • Posted by <a href="#" class="user-link">u/developer123</a>
+                            <span class="post-time">8 hours ago</span>
+                        </span>
+                    </div>
+
+                    <!-- Post Title -->
+                    <h3 class="post-title">
+                        <a href="#">Building a Reddit Clone with .NET MVC and Bootstrap</a>
+                    </h3>
+
+                    <!-- Post Text/Media -->
+                    <div class="post-media">
+                        <img src="https://picsum.photos/500/200" alt="Post thumbnail" class="post-thumbnail">
+                    </div>
+
+                    <!-- Post Footer -->
+                    <div class="post-footer">
+                        <button class="post-action-btn">
+                            <i class="fas fa-comment-alt"></i>
+                            <span>128 Comments</span>
+                        </button>
+                        <button class="post-action-btn">
+                            <i class="fas fa-share"></i>
+                            <span>Share</span>
+                        </button>
+                        <button class="post-action-btn">
+                            <i class="fas fa-bookmark"></i>
+                            <span>Save</span>
+                        </button>
+                        <button class="post-action-btn">
+                            <i class="fas fa-ellipsis-h"></i>
+                        </button>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Second Post (Different Type) -->
+            <article class="post-card sidebar-section mb-3">
+                <div class="vote-column">
+                    <button class="vote-btn upvote">
+                        <i class="fas fa-arrow-up"></i>
+                    </button>
+                    <span class="vote-count">5.9k</span>
+                    <button class="vote-btn downvote">
+                        <i class="fas fa-arrow-down"></i>
+                    </button>
+                </div>
+
+                <div class="post-content">
+                    <div class="post-header">
+                        <a href="#" class="subreddit-link">r/webdev</a>
+                        <span class="post-metadata">
+                            • Posted by <a href="#" class="user-link">u/webmaster</a>
+                            <span class="post-time">2 hours ago</span>
+                        </span>
+                    </div>
+
+                    <h3 class="post-title">
+                        <a href="#">10 Must-Know CSS Grid Techniques for Modern Layouts</a>
+                    </h3>
+
+                    <div class="post-text">
+                        <p>Here's a quick guide to using CSS Grid effectively in your projects. I've been using these techniques in production...</p>
+                    </div>
+
+                    <div class="post-footer">
+                        <button class="post-action-btn">
+                            <i class="fas fa-comment-alt"></i>
+                            <span>45 Comments</span>
+                        </button>
+                        <button class="post-action-btn">
+                            <i class="fas fa-share"></i>
+                            <span>Share</span>
+                        </button>
+                        <button class="post-action-btn">
+                            <i class="fas fa-bookmark"></i>
+                            <span>Save</span>
+                        </button>
+                        <button class="post-action-btn">
+                            <i class="fas fa-ellipsis-h"></i>
+                        </button>
+                    </div>
+                </div>
+            </article>
+        </main>
+
+        <!-- Right Sidebar -->
+        <aside class="right-sidebar">
+            <div class="sidebar-section">
+                <div class="ad-container">
+                    Advertisement Space
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <h6 class="mb-3">Recommended Posts</h6>
+                <div class="topic-item">Trending Post #1</div>
+                <div class="topic-item">Trending Post #2</div>
+                <div class="topic-item">Trending Post #3</div>
+            </div>
+        </aside>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
