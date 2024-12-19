@@ -1,0 +1,409 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.8.2/tinymce.min.js"></script>
+
+    <link href="~/css/goswizzle.css" rel="stylesheet" />
+    <link href="~/css/add-post.css" rel="stylesheet" />
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="https://picsum.photos/120/30" alt="Reddit Logo">
+            </a>
+
+            <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="d-flex flex-grow-1 justify-content-center">
+                <div class="search-bar">
+                    <input type="search" class="form-control" placeholder="Search Reddit">
+                </div>
+            </div>
+
+            <div class="d-flex align-items-center gap-2">
+                <button class="btn btn-outline-primary">Log In</button>
+                <button class="btn btn-primary">Sign Up</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Add this after the navbar -->
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="sidebarMenu">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title">Menu</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+        </div>
+        <div class="offcanvas-body">
+            <!-- Mobile-only login buttons -->
+            <div class="d-lg-none mb-3">
+                <button class="btn btn-outline-primary w-100 mb-2">Log In</button>
+                <button class="btn btn-primary w-100">Sign Up</button>
+            </div>
+
+            <!-- Sidebar content (will be moved here on mobile) -->
+            <div class="sidebar-content">
+                <!-- Copy the entire left-sidebar content here -->
+                <!-- Left Sidebar -->
+                <aside class="left-sidebar">
+                    <div class="sidebar-section">
+                        <div class="topic-group">
+                            <h6>RECENT</h6>
+                            <div class="topic-item">
+                                <i class="fas fa-code"></i>
+                                r/programming
+                            </div>
+                            <div class="topic-item">
+                                <i class="fas fa-laptop-code"></i>
+                                r/webdev
+                            </div>
+                            <div class="topic-item">r/programming</div>
+                            <div class="topic-item">r/webdev</div>
+                            <div class="topic-item">r/dotnet</div>
+                        </div>
+
+                        <div class="topic-group">
+                            <h6>TOPICS</h6>
+                            <div class="topic-item">Gaming</div>
+                            <div class="topic-item">Sports</div>
+                            <div class="topic-item">Technology</div>
+                        </div>
+
+                        <div class="topic-group">
+                            <h6>RESOURCES</h6>
+                            <div class="topic-item">Community Rules</div>
+                            <div class="topic-item">Premium</div>
+                            <div class="topic-item">Help Center</div>
+                        </div>
+                    </div>
+                </aside>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Left Sidebar -->
+        <aside class="left-sidebar">
+            <div class="sidebar-section">
+                <div class="topic-group">
+                    <h6>RECENT</h6>
+                    <div class="topic-item">
+                        <i class="fas fa-code"></i>
+                        r/programming
+                    </div>
+                    <div class="topic-item">
+                        <i class="fas fa-laptop-code"></i>
+                        r/webdev
+                    </div>
+                    <div class="topic-item">r/programming</div>
+                    <div class="topic-item">r/webdev</div>
+                    <div class="topic-item">r/dotnet</div>
+                </div>
+
+                <div class="topic-group">
+                    <h6>TOPICS</h6>
+                    <div class="topic-item">Gaming</div>
+                    <div class="topic-item">Sports</div>
+                    <div class="topic-item">Technology</div>
+                </div>
+
+                <div class="topic-group">
+                    <h6>RESOURCES</h6>
+                    <div class="topic-item">Community Rules</div>
+                    <div class="topic-item">Premium</div>
+                    <div class="topic-item">Help Center</div>
+                </div>
+            </div>
+        </aside>
+         
+
+        <main class="main-content"> 
+            <div class="post-creation-container sidebar-section">
+                <h2 class="post-creation-title mb-4">Create a post</h2>
+
+                <!-- Add this right after the post-creation-title -->
+                <div class="community-select-container mb-4">
+                    <div class="community-select">
+                        <i class="fas fa-search search-icon"></i>
+                        <input type="text"
+                               class="form-control community-search"
+                               placeholder="Choose a community"
+                               autocomplete="off">
+                    </div>
+                    <!-- Dropdown Results -->
+                    <div class="community-results" style="display: none;">
+                        <div class="community-result-item">
+                            <img src="https://picsum.photos/24/24" alt="r/programming" class="community-icon">
+                            <div class="community-info">
+                                <div class="community-name">r/programming</div>
+                                <div class="community-stats">4.2m members</div>
+                            </div>
+                        </div>
+                        <!-- More results will be dynamically added -->
+                    </div>
+                </div>
+
+                <!-- Post Type Tabs -->
+                <ul class="nav nav-tabs mb-3" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#text-post" type="button" role="tab">
+                            <i class="fas fa-font me-2"></i>Text Post
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#media-post" type="button" role="tab">
+                            <i class="fas fa-images me-2"></i>Images & Video
+                        </button>
+                    </li>
+                </ul>
+
+                <!-- Tab Content -->
+                <div class="tab-content">
+                    <!-- Text Post Tab -->
+                    <div class="tab-pane fade show active" id="text-post">
+                        <form class="post-form">
+                            <div class="mb-3">
+                                <input type="text" class="form-control post-title-input"
+                                       placeholder="Title" maxlength="300" required>
+                                <small class="text-muted title-counter">0/300</small>
+                            </div>
+                             
+
+                            <!-- Replace the existing editor-toolbar and textarea with this -->
+                            <div class="mb-3">
+                                <textarea id="rich-text-editor"></textarea>
+                            </div>
+
+                            <div class="post-actions">
+                                <button type="button" class="btn btn-outline-primary me-2">Save Draft</button>
+                                <button type="submit" class="btn btn-primary">Post</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Media Post Tab -->
+                    <div class="tab-pane fade" id="media-post">
+                        <form class="post-form">
+                            <div class="mb-3">
+                                <input type="text" class="form-control post-title-input"
+                                       placeholder="Title" maxlength="300" required>
+                                <small class="text-muted title-counter">0/300</small>
+                            </div>
+
+                            <div class="media-upload-section mb-3">
+                                <div class="upload-area" id="uploadArea">
+                                    <input type="file" id="mediaInput" multiple
+                                           accept="image/*,video/*" class="d-none">
+                                    <div class="upload-prompt">
+                                        <i class="fas fa-cloud-upload-alt mb-2"></i>
+                                        <p>Drag and drop images/videos or</p>
+                                        <button type="button" class="btn btn-outline-primary"
+                                                onclick="document.getElementById('mediaInput').click()">
+                                            Upload
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- Media Preview Section -->
+                                <div class="media-preview" id="mediaPreview">
+                                    <!-- Preview items will be added here -->
+                                </div>
+                            </div>
+
+                            <div class="post-actions">
+                                <button type="button" class="btn btn-outline-primary me-2">Save Draft</button>
+                                <button type="submit" class="btn btn-primary">Post</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+         
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const MAX_FILE_SIZE = 20 * 1024 * 1024; // 20MB
+        const MAX_FILES = 10;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Title character counter
+            document.querySelectorAll('.post-title-input').forEach(input => {
+                input.addEventListener('input', function() {
+                    const counter = this.nextElementSibling;
+                    counter.textContent = `${this.value.length}/300`;
+                });
+            });
+
+            // File upload handling
+            const uploadArea = document.getElementById('uploadArea');
+            const mediaInput = document.getElementById('mediaInput');
+            const mediaPreview = document.getElementById('mediaPreview');
+
+            // Drag and drop
+            uploadArea.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                uploadArea.style.backgroundColor = '#e9ecef';
+            });
+
+            uploadArea.addEventListener('dragleave', () => {
+                uploadArea.style.backgroundColor = '';
+            });
+
+            uploadArea.addEventListener('drop', (e) => {
+                e.preventDefault();
+                uploadArea.style.backgroundColor = '';
+                handleFiles(e.dataTransfer.files);
+            });
+
+            mediaInput.addEventListener('change', () => {
+                handleFiles(mediaInput.files);
+            });
+
+            // function handleFiles(files) {
+            //     Array.from(files).forEach(file => {
+            //         if (file.type.startsWith('image/') || file.type.startsWith('video/')) {
+            //             const reader = new FileReader();
+            //             reader.onload = (e) => {
+            //                 const div = document.createElement('div');
+            //                 div.className = 'preview-item';
+
+            //                 if (file.type.startsWith('image/')) {
+            //                     div.innerHTML = `
+            //                         <img src="${e.target.result}" alt="Preview">
+            //                         <button class="preview-remove" onclick="this.parentElement.remove()">
+            //                             <i class="fas fa-times"></i>
+            //                         </button>
+            //                     `;
+            //                 } else {
+            //                     div.innerHTML = `
+            //                         <video src="${e.target.result}" controls></video>
+            //                         <button class="preview-remove" onclick="this.parentElement.remove()">
+            //                             <i class="fas fa-times"></i>
+            //                         </button>
+            //                     `;
+            //                 }
+
+            //                 mediaPreview.appendChild(div);
+            //             };
+            //             reader.readAsDataURL(file);
+            //         }
+            //     });
+            // }
+
+            function handleFiles(files) {
+                if (mediaPreview.children.length + files.length > MAX_FILES) {
+                    showError('You can only upload up to ' + MAX_FILES + ' files');
+                    return;
+                }
+
+                Array.from(files).forEach(file => {
+                    if (file.size > MAX_FILE_SIZE) {
+                        showError(`File ${file.name} exceeds 20MB limit`);
+                        return;
+                    }
+
+                    if (file.type.startsWith('image/') || file.type.startsWith('video/')) {
+                        const reader = new FileReader();
+                          reader.onload = (e) => {
+                            const div = document.createElement('div');
+                            div.className = 'preview-item';
+
+                            if (file.type.startsWith('image/')) {
+                                div.innerHTML = `
+                                    <img src="${e.target.result}" alt="Preview">
+                                    <button class="preview-remove" onclick="this.parentElement.remove()">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                `;
+                            } else {
+                                div.innerHTML = `
+                                    <video src="${e.target.result}" controls></video>
+                                    <button class="preview-remove" onclick="this.parentElement.remove()">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                `;
+                            }
+
+                            mediaPreview.appendChild(div);
+                        };
+                        reader.readAsDataURL(file);
+                    } else {
+                        showError('Only images and videos are allowed');
+                    }
+                });
+            }
+
+                    function showError(message) {
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'file-error';
+            errorDiv.textContent = message;
+            mediaPreview.insertAdjacentElement('beforebegin', errorDiv);
+            setTimeout(() => errorDiv.remove(), 3000);
+        }
+
+        // Community Search
+        document.querySelector('.community-search').addEventListener('input', function(e) {
+            const searchTerm = e.target.value;
+            const results = document.querySelector('.community-results');
+
+            if (searchTerm.length > 0) {
+                results.style.display = 'block';
+                // In real implementation, you would make an API call here
+                // For demo, we'll show sample results
+            } else {
+                results.style.display = 'none';
+            }
+        });
+
+        // Click outside to close community dropdown
+        document.addEventListener('click', function(e) {
+            const container = document.querySelector('.community-select-container');
+            const results = document.querySelector('.community-results');
+
+            if (!container.contains(e.target)) {
+                results.style.display = 'none';
+            }
+        });
+
+
+        });
+    </script>
+
+    <script>
+        tinymce.init({
+            selector: '#rich-text-editor',
+            height: 300,
+            menubar: false,
+            plugins: [
+                'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
+                'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
+                'insertdatetime', 'media', 'table', 'help', 'wordcount'
+            ],
+            toolbar: 'undo redo | formatselect | ' +
+            'bold italic backcolor | alignleft aligncenter ' +
+            'alignright alignjustify | bullist numlist outdent indent | ' +
+            'removeformat | help',
+            content_style: 'body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size: 14px }',
+            skin: 'oxide',
+            toolbar_mode: 'sliding',
+            placeholder: 'Text (optional)'
+        });
+    </script>
+
+</body>
+</html>
