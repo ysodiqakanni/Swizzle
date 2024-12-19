@@ -185,7 +185,8 @@
 
                         <!-- Post Title -->
                         <h3 class="post-title">
-                            <a href="#">@post.Title</a>
+                            @* <a href="https://localhost:44311/communityId/posts/username/postId/posttitle">@post.Title</a> *@
+                            <a href="/posts/@post.Community/@post.PosterName/@post.TitleUrlFriendly">@post.Title</a>
                         </h3>
 
                         @if(post.HasMedia)
