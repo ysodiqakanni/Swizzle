@@ -98,6 +98,7 @@ namespace Swizzle.Controllers
             return View(post);
         }
 
+        
         public async Task<IActionResult> Create()
         {
             return View();
