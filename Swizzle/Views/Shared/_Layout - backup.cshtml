@@ -11,112 +11,94 @@
 </head>
 <body>
     <!-- Navbar -->
-    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
-            <!-- Left section -->
-            <div class="d-flex align-items-center">
-                <button class="navbar-toggler d-lg-none me-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMenu">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <a class="navbar-brand" href="@Url.Action("Index","Home")">
-                    <img src="https://picsum.photos/120/30" alt="Swizzle Logo">
-                </a>
-            </div>
+            <a class="navbar-brand" href="@Url.Action("Index","Home")">
+                <img src="https://picsum.photos/120/30" alt="Swizzle Logo">
+            </a>
 
-            <!-- Center section -->
-            <div class="d-none d-lg-flex flex-grow-1 justify-content-center">
+            <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="d-flex flex-grow-1 justify-content-center">
                 <div class="search-bar">
                     <input type="search" class="form-control" placeholder="Search Swizzle">
                 </div>
             </div>
 
-            <!-- Right section -->
             <div class="d-flex align-items-center gap-2">
-                <!-- Mobile-only icons -->
-                <div class="d-lg-none">
-                    <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#mobileSearch">
-                        <i class="fas fa-search"></i>
-                    </button>
-                    <button class="btn btn-link">
-                        <i class="fas fa-ellipsis-v"></i>
-                    </button>
-                </div>
-
-                <!-- Desktop buttons -->
-                <div class="d-none d-lg-flex align-items-center gap-2">
-                    <a class="btn btn-primary" href="@Url.Action("Create", "Posts")">Create New!</a>
-                    <button class="btn btn-outline-primary">Log In</button>
-                    <button class="btn btn-primary">Sign Up</button>
-                </div>
-
-                <!-- Mobile login button -->
-                <div class="d-lg-none">
-                    <button class="btn btn-primary btn-sm">Log In</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Mobile search collapse -->
-        <div class="collapse navbar-collapse" id="mobileSearch">
-            <div class="container-fluid py-2">
-                <input type="search" class="form-control" placeholder="Search Swizzle">
+                <a class="btn btn-primary" href="@Url.Action("Create", "Posts")">Create New!</a>
+                <button class="btn btn-outline-primary">Log In</button>
+                <button class="btn btn-primary">Sign Up</button>
             </div>
         </div>
     </nav>
 
-    <!-- Mobile Sidebar -->
+    <!-- Add this after the navbar -->
     <div class="offcanvas offcanvas-start" tabindex="-1" id="sidebarMenu">
         <div class="offcanvas-header">
             <h5 class="offcanvas-title">Menu</h5>
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
         </div>
         <div class="offcanvas-body">
-            <!-- Sidebar content here -->
+            <!-- Mobile-only login buttons -->
+            <div class="d-lg-none mb-3">
+                <button class="btn btn-outline-primary w-100 mb-2">Create</button>
+                <button class="btn btn-outline-primary w-100 mb-2">Log In</button>
+                <button class="btn btn-primary w-100">Sign Up</button>
+            </div>
+
+            <!-- Sidebar content (will be moved here on mobile) -->
             <div class="sidebar-content">
-                <!-- Your existing sidebar content --> 
-                <div class="sidebar-section">
-                    <div class="topic-group"> 
-                        <h6>RECENTLY</h6>
-                        <div class="topic-item">
-                            <i class="fas fa-code"></i>
-                            r/programming
-                        </div>
-                        <div class="topic-item">
-                            <i class="fas fa-laptop-code"></i>
-                            r/webdev
-                        </div>
-                        <div class="topic-item">
-                            <i class="fas fa-laptop-code"></i>
-                            r/Gamess
-                        </div>
-                        <div class="topic-item">r/programming</div>
-                        <div class="topic-item">r/webdev</div>
-                        <div class="topic-item">r/dotnet</div>
-                    </div>
-                    <hr>
-                    <div class="topic-group">
-                        <h6>TOPICS</h6>
-                        <div class="topic-item">Gaming</div>
-                        <div class="topic-item">Sports</div>
-                        <div class="topic-item">Technology</div>
-                    </div>
+                <!-- Copy the entire left-sidebar content here -->
+                <!-- Left Sidebar -->
+                <aside class="left-sidebar">
+                    <div class="sidebar-section">
+                        <div class="topic-group">
 
-                    <hr>
 
-                    <div class="topic-group">
-                        <h6>RESOURCES</h6>
-                        <div class="topic-item">Community Rules</div>
-                        <div class="topic-item">Premium</div>
-                        <div class="topic-item">Help Center</div>
+
+                            <h6>RECENTLY</h6>
+                            <div class="topic-item">
+                                <i class="fas fa-code"></i>
+                                r/programming
+                            </div>
+                            <div class="topic-item">
+                                <i class="fas fa-laptop-code"></i>
+                                r/webdev
+                            </div>
+                            <div class="topic-item">
+                                <i class="fas fa-laptop-code"></i>
+                                r/Gamess
+                            </div>
+                            <div class="topic-item">r/programming</div>
+                            <div class="topic-item">r/webdev</div>
+                            <div class="topic-item">r/dotnet</div>
+                        </div>
+                        <hr>
+                        <div class="topic-group">
+                            <h6>TOPICS</h6>
+                            <div class="topic-item">Gaming</div>
+                            <div class="topic-item">Sports</div>
+                            <div class="topic-item">Technology</div>
+                        </div>
+
+                        <hr>
+
+                        <div class="topic-group">
+                            <h6>RESOURCES</h6>
+                            <div class="topic-item">Community Rules</div>
+                            <div class="topic-item">Premium</div>
+                            <div class="topic-item">Help Center</div>
+                        </div>
                     </div>
-                </div>
+                </aside>
 
             </div>
         </div>
     </div>
 
-   
     <!-- Main Container -->
     <div class="main-container">
         <!-- Left Sidebar -->
