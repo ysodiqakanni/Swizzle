@@ -1,0 +1,228 @@
+﻿@model Swizzle.Models.User.UserPublicProfilePageViewModel
+
+<!-- Add this before the post listings in main-content -->
+
+
+<link href="~/css/community-page.css" rel="stylesheet" />
+
+<div class="community-header mb-4">
+    <!-- Banner -->
+    <div class="community-banner">
+        <img src="@Model.CoverPhotoUrl" alt="Community Banner" class="banner-img">
+    </div>
+
+    <!-- Community Info Card -->
+    <div class="community-info-card sidebar-section">
+        <div class="community-title-section">
+            <img src="@Model.LogoUrl" alt="Community Icon" class="community-icon">
+            <div class="community-title-content">
+                <h1 class="community-name">@Model.FullName</h1>
+                <p class="community-handle">@Model.UserName</p>
+            </div>
+            <div class="community-actions">
+                <a href="@Url.Action("Create", "Posts")" class="btn btn-primary create-post-btn">
+                    <i class="fas fa-plus me-2"></i>Create Post
+                </a>
+                <button class="btn btn-primary join-button">Join</button>
+                <button class="btn btn-icon" title="Notifications">
+                    <i class="fas fa-bell"></i>
+                </button>
+                <button class="btn btn-icon" title="More Options">
+                    <i class="fas fa-ellipsis-h"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="community-stats">
+            <div class="stat-item">
+                <span class="stat-value">@Model.PostsCount</span>
+                <span class="stat-label">Posts</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-value">@Model.CommentsCount</span>
+                <span class="stat-label">Comments</span>
+            </div>
+        </div>
+
+        <p class="community-description">
+            @Model.About
+        </p>
+
+        <div class="community-metadata">
+            <i class="fas fa-birthday-cake"></i>
+            <span>Joined @Model.JoinedDate</span>
+        </div>
+    </div>
+</div>
+
+@foreach (var post in Model.PagePosts)
+{
+    <article class="post-card sidebar-section mb-3">
+        <!-- Vote Column -->
+        <div class="vote-column">
+            <button class="vote-btn upvote">
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            <span class="vote-count">@post.VoteCount</span>
+            <button class="vote-btn downvote">
+                <i class="fas fa-arrow-down"></i>
+            </button>
+        </div>
+
+        <!-- Post Content -->
+        <div class="post-content">
+            <!-- Post Header -->
+            <div class="post-header">
+                <a href="#" class="subreddit-link">r/programming</a>
+                <span class="post-metadata">
+                    • Posted by <a href="#" class="user-link">@post.PosterName</a>
+                    <span class="post-time">@post.TimePosted</span>
+                </span>
+            </div>
+
+            <!-- Post Title -->
+            <h3 class="post-title">
+                @* <a href="https://localhost:44311/communityId/posts/username/postId/posttitle">@post.Title</a> *@
+                <a href="/posts/@post.Community/@post.PosterName/@post.TitleUrlFriendly">@post.Title</a>
+            </h3>
+
+            @if (post.HasMedia)
+            {
+                <!-- Post Text/Media -->
+                <div class="post-media">
+                    <img src="@post.MediaUrl" alt="Post thumbnail" class="post-thumbnail">
+                </div>
+            }
+
+
+            <div class="post-text">
+                <p>@post.Description</p>
+            </div>
+
+            <!-- Post Footer -->
+            <div class="post-footer">
+                <button class="post-action-btn">
+                    <i class="fas fa-comment-alt"></i>
+                    <span>@post.CommentCount Comments</span>
+                </button>
+                <button class="post-action-btn">
+                    <i class="fas fa-share"></i>
+                    <span>Share</span>
+                </button>
+                <button class="post-action-btn">
+                    <i class="fas fa-bookmark"></i>
+                    <span>Save</span>
+                </button>
+                <button class="post-action-btn">
+                    <i class="fas fa-ellipsis-h"></i>
+                </button>
+            </div>
+        </div>
+    </article>
+
+}
+
+<!-- Post Card -->
+<article class="post-card sidebar-section mb-3">
+    <!-- Vote Column -->
+    <div class="vote-column">
+        <button class="vote-btn upvote">
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        <span class="vote-count">14.2k</span>
+        <button class="vote-btn downvote">
+            <i class="fas fa-arrow-down"></i>
+        </button>
+    </div>
+
+    <!-- Post Content -->
+    <div class="post-content">
+        <!-- Post Header -->
+        <div class="post-header">
+            <a href="#" class="subreddit-link">r/programming</a>
+            <span class="post-metadata">
+                • Posted by <a href="#" class="user-link">u/developer123</a>
+                <span class="post-time">8 hours ago</span>
+            </span>
+        </div>
+
+        <!-- Post Title -->
+        <h3 class="post-title">
+            <a href="#">Building a Reddit Clone with .NET MVC and Bootstrap</a>
+        </h3>
+
+        <!-- Post Text/Media -->
+        <div class="post-media">
+            <img src="https://picsum.photos/500/200" alt="Post thumbnail" class="post-thumbnail">
+        </div>
+
+        <!-- Post Footer -->
+        <div class="post-footer">
+            <button class="post-action-btn">
+                <i class="fas fa-comment-alt"></i>
+                <span>128 Comments</span>
+            </button>
+            <button class="post-action-btn">
+                <i class="fas fa-share"></i>
+                <span>Share</span>
+            </button>
+            <button class="post-action-btn">
+                <i class="fas fa-bookmark"></i>
+                <span>Save</span>
+            </button>
+            <button class="post-action-btn">
+                <i class="fas fa-ellipsis-h"></i>
+            </button>
+        </div>
+    </div>
+</article>
+
+<!-- Second Post (Different Type) -->
+<article class="post-card sidebar-section mb-3">
+    <div class="vote-column">
+        <button class="vote-btn upvote">
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        <span class="vote-count">5.9k</span>
+        <button class="vote-btn downvote">
+            <i class="fas fa-arrow-down"></i>
+        </button>
+    </div>
+
+    <div class="post-content">
+        <div class="post-header">
+            <a href="#" class="subreddit-link">r/webdev</a>
+            <span class="post-metadata">
+                • Posted by <a href="#" class="user-link">u/webmaster</a>
+                <span class="post-time">2 hours ago</span>
+            </span>
+        </div>
+
+        <h3 class="post-title">
+            <a href="#">10 Must-Know CSS Grid Techniques for Modern Layouts</a>
+        </h3>
+
+        <div class="post-text">
+            <p>Here's a quick guide to using CSS Grid effectively in your projects. I've been using these techniques in production...</p>
+        </div>
+
+        <div class="post-footer">
+            <button class="post-action-btn">
+                <i class="fas fa-comment-alt"></i>
+                <span>45 Comments</span>
+            </button>
+            <button class="post-action-btn">
+                <i class="fas fa-share"></i>
+                <span>Share</span>
+            </button>
+            <button class="post-action-btn">
+                <i class="fas fa-bookmark"></i>
+                <span>Save</span>
+            </button>
+            <button class="post-action-btn">
+                <i class="fas fa-ellipsis-h"></i>
+            </button>
+        </div>
+    </div>
+</article>
+

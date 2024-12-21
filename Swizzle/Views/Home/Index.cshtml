@@ -27,7 +27,7 @@
             <div class="post-header">
                 <a href="c/programming/sometitle" class="subreddit-link"> @post.Community</a>
                 <span class="post-metadata">
-                    • Posted by <a href="#" class="user-link">@post.PosterName</a>
+                            • Posted by <a href="@Url.Action("PublicProfile","User", new {username=post.PosterName})" class="user-link">@post.PosterName</a>
                     <span class="post-time">@post.TimePosted</span>
                 </span>
             </div>
