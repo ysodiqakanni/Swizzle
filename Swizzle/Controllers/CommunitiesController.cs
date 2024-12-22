@@ -89,5 +89,7 @@ namespace Swizzle.Controllers
 
             return View(model);
         }
+
+        // creating community should allow only letters, numbers and underscores.
     }
 }

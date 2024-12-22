@@ -101,7 +101,24 @@ namespace Swizzle.Controllers
         
         public async Task<IActionResult> Create()
         {
+            // load communities
             return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> Create(CreatePostViewModel model)
+        {
+
+            // validate post model
+            if (string.IsNullOrEmpty(model?.Title?.Trim()))
+            {
+                ViewBag.ErrorMessage = "Title is required!";
+                return View(model);
+            }
+            // fetch the loggedIn user ID: 6649989b81da82407aa94584 for test.
+            // check community Id: 66499a5a463a83871675c01b for test.
+
+            // maybe send back to the community page?
+            return View(model);
         }
     }
 }
