@@ -74,10 +74,8 @@
         formData.append('Title1', titleInput.val().trim());
 
         // Add rich text editor content if exists
-        const richTextEditor = $('#rich-text-editor');
-        if (richTextEditor.length) {
-            formData.append('Description', richTextEditor.val());
-        }
+        const description = tinymce.get("rich-text-editor").getContent();
+        formData.append('Description', description);
 
         // AJAX submission
         $.ajax({
@@ -139,9 +137,10 @@
         formData.append('CommunityId', selectedCommunityId);
 
         // Add rich text editor content if exists
-        const richTextEditor = $('#rich-text-editor');
+        const description = tinymce.get("rich-text-editor").getContent();
+        const richTextEditor = $('#Description');
         if (richTextEditor.length) {
-            formData.append('Description', richTextEditor.val());
+            formData.append('Description', description);
         }
 
         // Handle media files
