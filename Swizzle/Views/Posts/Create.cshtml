@@ -5,6 +5,8 @@
 <div class="post-creation-container sidebar-section">
     <h2 class="post-creation-title mb-4">Create a post</h2>
 
+    <div class="alert-container"></div>
+
     <!-- Add this right after the post-creation-title -->
     <div class="community-select-container mb-4">
         <div class="community-select">
@@ -47,7 +49,7 @@
         <div class="tab-pane fade show active" id="text-post">
             <form class="post-form" method="post" action="Create">
                 <div class="mb-3">
-                    <input asp-for="Title" type="text" class="form-control post-title-input"
+                    <input asp-for="Title1" type="text" class="form-control post-title-input"
                            placeholder="Title" maxlength="300" required>
                     <small class="text-muted title-counter">0/300</small>
                 </div>
@@ -60,7 +62,7 @@
 
                 <div class="post-actions">
                     <button type="button" class="btn btn-outline-primary me-2">Save Draft</button>
-                    <button type="submit" class="btn btn-primary">Post</button>
+                    <button type="button" id="btnSubmitText" class="btn btn-primary">Post</button>
                 </div>
             </form>
         </div>
@@ -69,7 +71,7 @@
         <div class="tab-pane fade" id="media-post">
             <form class="post-form" method="post" action="CreateWithGraphics">
                 <div class="mb-3">
-                    <input asp-for="Title" type="text" class="form-control post-title-input"
+                    <input asp-for="Title2" type="text" class="form-control post-title-input"
                            placeholder="Title" maxlength="300" required>
                     <small class="text-muted title-counter">0/300</small>
                 </div>
@@ -96,12 +98,17 @@
 
                 <div class="post-actions">
                     <button type="button" class="btn btn-outline-primary me-2">Save Draft</button>
-                    <button type="submit" class="btn btn-primary">Post</button>
+                    <button type="button" id="btnSubmitGraphics" class="btn btn-primary">Post</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
+
+@section Scripts {
+    <script src="~/js/create-post.js"></script>
+}
+
 
 <script>
     const MAX_FILE_SIZE = 20 * 1024 * 1024; // 20MB

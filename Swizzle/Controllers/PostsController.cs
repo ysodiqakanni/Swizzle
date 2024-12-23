@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Hosting;
 using Swizzle.Models.Post;
+using System.Security.Claims;
 
 namespace Swizzle.Controllers
 {
@@ -109,7 +112,7 @@ namespace Swizzle.Controllers
         {
 
             // validate post model
-            if (string.IsNullOrEmpty(model?.Title?.Trim()))
+            if (string.IsNullOrEmpty(model?.Title1?.Trim()))
             {
                 ViewBag.ErrorMessage = "Title is required!";
                 return View(model);
@@ -120,5 +123,99 @@ namespace Swizzle.Controllers
             // maybe send back to the community page?
             return View(model);
         }
+
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Create([FromForm] CreatePostViewModel model)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return Json(new { success = false, message = "Invalid form data" });
+        //    }
+
+        //    try
+        //    {
+        //        var post = new Post
+        //        {
+        //            Title = model.Title,
+        //            Description = model.Description,
+        //            CommunityId = model.CommunityId,
+        //            UserId = User.FindFirstValue(ClaimTypes.NameIdentifier) // Assuming you're using ASP.NET Identity
+        //        };
+
+        //        var result = await _postService.CreatePostAsync(post);
+
+        //        return Json(new
+        //        {
+        //            success = true,
+        //            redirectUrl = Url.Action("Details", "Post", new { id = result.Id })
+        //        });
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        // Log the exception
+        //        return Json(new { success = false, message = "Failed to create post" });
+        //    }
+        //}
+
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> CreateWithGraphics([FromForm] CreatePostViewModel model)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return Json(new { success = false, message = "Invalid form data" });
+        //    }
+
+        //    try
+        //    {
+        //        var post = new Post
+        //        {
+        //            Title = model.Title,
+        //            Description = model.Description,
+        //            CommunityId = model.CommunityId,
+        //            UserId = User.FindFirstValue(ClaimTypes.NameIdentifier)
+        //        };
+
+        //        // Handle media files
+        //        if (model.MediaFiles != null && model.MediaFiles.Any())
+        //        {
+        //            var mediaUrls = new List<string>();
+        //            var uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "uploads");
+
+        //            foreach (var file in model.MediaFiles)
+        //            {
+        //                if (file.Length > 0)
+        //                {
+        //                    var uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
+        //                    var filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+        //                    using (var stream = new FileStream(filePath, FileMode.Create))
+        //                    {
+        //                        await file.CopyToAsync(stream);
+        //                    }
+
+        //                    mediaUrls.Add("/uploads/" + uniqueFileName);
+        //                }
+        //            }
+
+        //            post.MediaUrls = mediaUrls;
+        //        }
+
+        //        var result = await _postService.CreatePostAsync(post);
+
+        //        return Json(new
+        //        {
+        //            success = true,
+        //            redirectUrl = Url.Action("Details", "Post", new { id = result.Id })
+        //        });
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        // Log the exception
+        //        return Json(new { success = false, message = "Failed to create post" });
+        //    }
+        //}
+
     }
 }
