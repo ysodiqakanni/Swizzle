@@ -1,43 +1,48 @@
 ﻿$(document).ready(function () {
     let selectedCommunityId = null;
 
-    // Community search handling
-    //$('.community-search').on('input', function () {
-    //    const searchTerm = $(this).val();
-    //    const resultsContainer = $('.community-results');
+    //Community search handling
+    $('.community-search').on('input', function () {
+        const searchTerm = $(this).val();
+        const resultsContainer = $('.community-results');
 
-    //    if (searchTerm.length > 0) {
-    //        resultsContainer.show();
-    //        // Here you would typically make an AJAX call to search communities
-    //        $.ajax({
-    //            url: '/api/communities/search',
-    //            data: { query: searchTerm },
-    //            success: function (results) {
-    //                // Populate results
-    //                resultsContainer.html(results.map(community => `
-    //                    <div class="community-result-item" data-community-id="${community.id}">
-    //                        <img src="${community.iconUrl}" alt="${community.name}" class="community-icon">
-    //                        <div class="community-info">
-    //                            <div class="community-name">${community.name}</div>
-    //                            <div class="community-stats">${community.memberCount} members</div>
-    //                        </div>
-    //                    </div>
-    //                `).join(''));
-    //            }
-    //        });
-    //    } else {
-    //        resultsContainer.hide();
-    //    }
-    //});
+        if (searchTerm.length > 0) {
+            resultsContainer.show();
+            // Here you would typically make an AJAX call to search communities
+            $.ajax({
+                url: '/c/search',
+                data: { query: searchTerm },
+                success: function (result) {
+                    if (result.success == true) {
+                        // Populate results
+                        resultsContainer.html(result.data.map(community => `
+                        <div class="community-result-item" data-community-id="${community.id}">
+                            <img src="${community.avatarUrl}" alt="${community.name}" class="community-icon">
+                            <div class="community-info">
+                                <div class="community-name">${community.name}</div>
+                                <div class="community-stats">${community.memberCount} members</div>
+                            </div>
+                        </div>
+                    `).join(''));
+                    }
+                    else {
+                        showError(result.message);
+                    }
+                }
+            });
+        } else {
+            resultsContainer.hide();
+        }
+    });
 
 
-    //// Community selection
-    //$('.community-results').on('click', '.community-result-item', function () {
-    //    const communityName = $(this).find('.community-name').text();
-    //    selectedCommunityId = $(this).data('community-id');
-    //    $('.community-search').val(communityName);
-    //    $('.community-results').hide();
-    //});
+    // Community selection
+    $('.community-results').on('click', '.community-result-item', function () { 
+        const communityName = $(this).find('.community-name').text();
+        selectedCommunityId = $(this).data('community-id');
+        $('.community-search').val(communityName);
+        $('.community-results').hide();
+    });
 
     //// Initialize rich text editor
     //if ($('#rich-text-editor').length) {
@@ -51,8 +56,7 @@
         const submitButton = $(this);
         const originalButtonText = submitButton.text();
         submitButton.prop('disabled', true).html('<span class="spinner-border spinner-border-sm me-2"></span>Posting...');
-
-        selectedCommunityId = $("#CommunityId").val();
+         
         // Validate required fields
         if (!selectedCommunityId) {
             showError('Please select a community');

@@ -202,46 +202,46 @@
 
 
             // Community Search and Selection
-    document.querySelector('.community-search').addEventListener('input', function(e) {
-        const searchTerm = e.target.value;
-        const results = document.querySelector('.community-results');
+    // document.querySelector('.community-search').addEventListener('input', function(e) {
+    //     const searchTerm = e.target.value;
+    //     const results = document.querySelector('.community-results');
 
-        if (searchTerm.length > 0) {
-            results.style.display = 'block';
-            // Mock API call - in real implementation, filter communities based on search
-            const mockCommunities = [
-                { name: 'r/programming', members: '4.2m' },
-                { name: 'r/javascript', members: '2.1m' },
-                { name: 'r/webdev', members: '1.8m' }
-            ];
+    //     if (searchTerm.length > 0) {
+    //         results.style.display = 'block';
+    //         // Mock API call - in real implementation, filter communities based on search
+    //         const mockCommunities = [
+    //             { name: 'r/programming', members: '4.2m' },
+    //             { name: 'r/javascript', members: '2.1m' },
+    //             { name: 'r/webdev', members: '1.8m' }
+    //         ];
 
-            // Clear previous results
-            results.innerHTML = '';
+    //         // Clear previous results
+    //         results.innerHTML = '';
 
-            // Add new results
-            mockCommunities.forEach(community => {
-                const item = document.createElement('div');
-                item.className = 'community-result-item';
-                item.innerHTML = `
-                    <img src="https://picsum.photos/24/24" alt="${community.name}" class="community-icon">
-                    <div class="community-info">
-                        <div class="community-name">${community.name}</div>
-                        <div class="community-stats">${community.members} members</div>
-                    </div>
-                `;
+    //         // Add new results
+    //         mockCommunities.forEach(community => {
+    //             const item = document.createElement('div');
+    //             item.className = 'community-result-item';
+    //             item.innerHTML = `
+    //                 <img src="https://picsum.photos/24/24" alt="${community.name}" class="community-icon">
+    //                 <div class="community-info">
+    //                     <div class="community-name">${community.name}</div>
+    //                     <div class="community-stats">${community.members} members</div>
+    //                 </div>
+    //             `;
 
-                // Add click handler
-                item.addEventListener('click', () => {
-                    document.querySelector('.community-search').value = community.name;
-                    results.style.display = 'none';
-                });
+    //             // Add click handler
+    //             item.addEventListener('click', () => {
+    //                 document.querySelector('.community-search').value = community.name;
+    //                 results.style.display = 'none';
+    //             });
 
-                results.appendChild(item);
-            });
-        } else {
-            results.style.display = 'none';
-        }
-    });
+    //             results.appendChild(item);
+    //         });
+    //     } else {
+    //         results.style.display = 'none';
+    //     }
+    // });
 
     // Close dropdown when clicking outside
     document.addEventListener('click', function(e) {

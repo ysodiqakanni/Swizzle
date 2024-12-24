@@ -1,12 +1,21 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Swizzle.DTOs.Responses;
 using Swizzle.Models.Community;
 using Swizzle.Models.Post;
+using Swizzle.Services;
+using System.Net.Http;
 
 namespace Swizzle.Controllers
 {
     [Route("c")]
     public class CommunitiesController : Controller
     {
+        private readonly IHttpClientService _httpClient;
+
+        public CommunitiesController(IHttpClientService httpClient)
+        {
+            _httpClient = httpClient;
+        }
         public IActionResult Index()
         {
             return View();
@@ -90,6 +99,24 @@ namespace Swizzle.Controllers
             return View(model);
         }
 
-        // creating community should allow only letters, numbers and underscores.
+        [Route("search")]
+        public async Task<IActionResult> Search(string query)
+        { 
+            var response = await _httpClient.GetAsync<List<CommunityListResponseDto>>("communities");
+            var filtered = response.Data.Where(x => x.Name.ToLower().Contains(query.ToLower())).ToList();
+            if (response.Success)
+            {
+                return Json(new
+                {
+                    success = true,
+                    data = filtered.Any() ? filtered : response.Data.Take(4)
+                });
+            }
+            return Json(new
+            {
+                success = false,
+                message = "Error loading page data. Please retry after a few minutes."
+            });
+        }
     }
 }
