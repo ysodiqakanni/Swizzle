@@ -33,7 +33,7 @@ namespace Swizzle.Services
             _configuration = configuration;
             _logger = logger;
 
-            _baseUrl = "http://localhost:8090/api/v1/"; // _configuration["ApiSettings:BaseUrl"];
+            _baseUrl = "http://134.209.20.62:8600/api/v1/";     //  "http://localhost:8090/api/v1/"; // _configuration["ApiSettings:BaseUrl"];
             _apiKey = "";   // _configuration["ApiSettings:ApiKey"];
 
             ConfigureHttpClient();
