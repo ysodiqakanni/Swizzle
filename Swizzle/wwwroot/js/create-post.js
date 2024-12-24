@@ -94,7 +94,7 @@
                     // Redirect after a brief delay
                     setTimeout(() => {
                         window.location.href = response.redirectUrl;
-                    }, 1000);
+                    }, 2000);
                 } else {
                     showError(response.message || 'Failed to create post');
                     resetSubmitButton(submitButton, originalButtonText);
@@ -180,7 +180,7 @@
                     // Redirect after a brief delay
                     setTimeout(() => {
                         window.location.href = response.redirectUrl;
-                    }, 1000);
+                    }, 2000);
                 } else {
                     showError(response.message || 'Failed to create post');
                     resetSubmitButton();

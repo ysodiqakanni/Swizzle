@@ -1,20 +1,29 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Hosting;
+using Swizzle.DTOs.Responses;
 using Swizzle.Models.Post;
+using Swizzle.Services;
+using System.Net.Http;
 using System.Security.Claims;
 
 namespace Swizzle.Controllers
 {
     public class PostsController : Controller
     {
+        private readonly IHttpClientService _httpClient;
+
+        public PostsController(IHttpClientService httpClient)
+        {
+            _httpClient = httpClient;
+        }
         public IActionResult Index()
         {
             return View();
         }
          
         [Route("posts/{communityId}/{userId}/{postTitle}")]
-        public IActionResult PostDetails(string communityId, string userId, string postId, string postTitle)
+        public IActionResult PostDetails(string communityId, string userId, string postTitle)
         {
             var post = new PostDetailPageViewModel()
             {
@@ -104,24 +113,41 @@ namespace Swizzle.Controllers
         
         public async Task<IActionResult> Create()
         {
+            //var communities = await _httpClient.GetAsync<BaseApiResponse<List<CommunityListResponseDto>>>($"communities");
+            var response = await _httpClient.GetAsync<List<CommunityListResponseDto>>("communities");
+
             // load communities
             return View();
         }
         [HttpPost]
+        //[ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CreatePostViewModel model)
-        {
-
+        { 
             // validate post model
             if (string.IsNullOrEmpty(model?.Title1?.Trim()))
             {
                 ViewBag.ErrorMessage = "Title is required!";
-                return View(model);
+                return Json(new
+                {
+                    success = false,
+                    Message = "Fill all required fields"
+                }); 
             }
+            var userId = "6649989b81da82407aa94584";
+            model.CommunityId = "66499a5a463a83871675c01b";
             // fetch the loggedIn user ID: 6649989b81da82407aa94584 for test.
             // check community Id: 66499a5a463a83871675c01b for test.
 
             // maybe send back to the community page?
-            return View(model);
+
+            // now make the api call here and check the response.
+            Thread.Sleep(1000);
+
+            return Json(new
+            {
+                success = true,
+                redirectUrl = Url.Action("PostDetails", "Posts", new { communityId =model.CommunityId, userId=userId, postTitle=model.Title1 })
+            });
         }
 
         //[HttpPost]

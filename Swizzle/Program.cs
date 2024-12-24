@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
+using Swizzle.Services;
 
 namespace Swizzle
 {
@@ -22,6 +23,7 @@ namespace Swizzle
                     options.LogoutPath = "/Authentication/Logout";
                     options.LoginPath = "/Authentication/Logout";
                 });
+            builder.Services.AddHttpClient<IHttpClientService, HttpClientService>();
 
             var app = builder.Build();
 
