@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Hosting;
+using Swizzle.DTOs.Requests;
 using Swizzle.DTOs.Responses;
 using Swizzle.Models.Post;
 using Swizzle.Services;
@@ -133,21 +134,39 @@ namespace Swizzle.Controllers
                     Message = "Fill all required fields"
                 }); 
             }
-            var userId = "6649989b81da82407aa94584";
-            model.CommunityId = "66499a5a463a83871675c01b";
+            var userId = "676a3d81755343b5af07c68f";
+            //model.CommunityId = "66499a5a463a83871675c01b";
             // fetch the loggedIn user ID: 6649989b81da82407aa94584 for test.
             // check community Id: 66499a5a463a83871675c01b for test.
 
             // maybe send back to the community page?
 
             // now make the api call here and check the response.
-            Thread.Sleep(1000);
-
-            return Json(new
+            var payload = new CreatePostRequestDto()
             {
-                success = true,
-                redirectUrl = Url.Action("PostDetails", "Posts", new { communityId =model.CommunityId, userId=userId, postTitle=model.Title1 })
-            });
+                CommunityId = model.CommunityId,
+                Title = model.Title1,
+                content = model.Description,
+                UserId = userId
+            };
+            var response = await _httpClient.PostAsync<string>("posts", payload);
+            
+            if (response.Success)
+            {
+                return Json(new
+                {
+                    success = true,
+                    redirectUrl = Url.Action("PostDetails", "Posts", new { communityId = model.CommunityId, userId = userId, postTitle = model.Title1.ToUrlFriendly() })
+                });
+            }
+            else
+            {
+                return Json(new
+                {
+                    success = false,
+                    Message = response.Message
+                });
+            }  
         }
 
         //[HttpPost]

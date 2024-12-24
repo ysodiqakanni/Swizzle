@@ -14,6 +14,8 @@ namespace Swizzle.DTOs.Responses
 
         [JsonPropertyName("data")]
         public T Data { get; set; }
+
+        [JsonPropertyName("errors")]
         public Dictionary<string, string[]> Errors { get; set; }
     }
 }
