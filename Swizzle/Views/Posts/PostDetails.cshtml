@@ -1,0 +1,181 @@
+﻿
+@model Swizzle.Models.Post.PostDetailPageViewModel
+
+<link href="~/css/post-detail.css" rel="stylesheet" />
+<div class="post-detail-container">
+    <!-- Full Post Content -->
+    <article class="post-detail sidebar-section mb-3">
+        <div class="vote-column">
+            <button class="vote-btn upvote">
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            <span class="vote-count">@Model.Post.VoteCount</span>
+            <button class="vote-btn downvote">
+                <i class="fas fa-arrow-down"></i>
+            </button>
+        </div>
+
+        <div class="post-content">
+            <div class="post-header">
+                <a href="c/@Model.Post.Community/@Model.Post.Community" class="subreddit-link"> @Model.Post.Community</a>
+                <span class="post-metadata">
+                    • Posted by <a href="#" class="user-link">u/@Model.Post.PosterName</a>
+                    <span class="post-time">@Model.Post.TimePosted</span>
+                </span>
+            </div>
+
+            <h1 class="post-detail-title">
+                @Model.Post.Title
+            </h1>
+
+            <div class="post-body">
+                @Model.Post.Content
+            </div>
+
+            <div class="post-footer">
+                <button class="post-action-btn">
+                    <i class="fas fa-comment-alt"></i>
+                    <span>@Model.Post.CommentCount Comments</span>
+                </button>
+                <button class="post-action-btn">
+                    <i class="fas fa-share"></i>
+                    <span>Share</span>
+                </button>
+                <button class="post-action-btn">
+                    <i class="fas fa-bookmark"></i>
+                    <span>Save</span>
+                </button>
+                <button class="post-action-btn">
+                    <i class="fas fa-ellipsis-h"></i>
+                </button>
+            </div>
+        </div>
+    </article>
+
+    <!-- Comment Section -->
+    <section class="comments-section sidebar-section">
+        <!-- Comment Sort -->
+        <div class="comment-sort mb-3">
+            <span>Sort by: </span>
+            <select class="form-select form-select-sm d-inline-block w-auto">
+                <option>Best</option>
+                <option>Top</option>
+                <option>New</option>
+                <option>Controversial</option>
+                <option>Old</option>
+            </select>
+        </div>
+
+        <!-- Comment Input -->
+        <div class="comment-input mb-4">
+            <textarea class="form-control mb-2" rows="4" placeholder="What are your thoughts?"></textarea>
+            <button class="btn btn-primary">Comment</button>
+        </div>
+
+        <!-- Comments Thread -->
+        <div class="comments-thread">
+
+            @foreach (var comment in Model.Comments)
+            {
+                <div class="comment-container">
+                    <div class="vote-column small">
+                        <button class="vote-btn upvote">
+                            <i class="fas fa-arrow-up"></i>
+                        </button>
+                        <span class="vote-count">@comment.VoteCount</span>
+                        <button class="vote-btn downvote">
+                            <i class="fas fa-arrow-down"></i>
+                        </button>
+                    </div>
+
+                    <div class="comment-content">
+                        <div class="comment-header">
+                            <a href="#" class="user-link">u/@comment.PosterName</a>
+                            <span class="comment-time">@comment.TimePosted</span>
+                        </div>
+
+                        <div class="comment-body">
+                            <p>@comment.Content</p>
+                        </div>
+
+                        <div class="comment-actions">
+                            <button class="comment-action-btn">
+                                <i class="fas fa-reply"></i>
+                                Reply
+                            </button>
+                            <button class="comment-action-btn">
+                                <i class="fas fa-gift"></i>
+                                Award
+                            </button>
+                            <button class="comment-action-btn">
+                                <i class="fas fa-share"></i>
+                                Share
+                            </button>
+                            <button class="comment-action-btn">
+                                <i class="fas fa-flag"></i>
+                                Report
+                            </button>
+                        </div>
+
+                        @foreach (var reply in comment.Replies)
+                        {
+                            <!-- Nested Reply -->
+                            <div class="comment-replies">
+                                <div class="comment-container">
+                                    <div class="vote-column small">
+                                        <button class="vote-btn upvote">
+                                            <i class="fas fa-arrow-up"></i>
+                                        </button>
+                                        <span class="vote-count">@reply.VoteCount</span>
+                                        <button class="vote-btn downvote">
+                                            <i class="fas fa-arrow-down"></i>
+                                        </button>
+                                    </div>
+
+                                    <div class="comment-content">
+                                        <div class="comment-header">
+                                            <a href="#" class="user-link">@reply.PosterName</a>
+                                            @if (reply.PosterName == Model.Post.PosterName)
+                                            {
+                                                <span class="op-tag">OP</span>
+                                            }
+
+                                            <span class="comment-time">@reply.TimePosted</span>
+                                        </div>
+
+                                        <div class="comment-body">
+                                            <p>@reply.Content</p>
+                                        </div>
+
+                                        <div class="comment-actions">
+                                            <button class="comment-action-btn">
+                                                <i class="fas fa-reply"></i>
+                                                Reply
+                                            </button>
+                                            <button class="comment-action-btn">
+                                                <i class="fas fa-gift"></i>
+                                                Award
+                                            </button>
+                                            <button class="comment-action-btn">
+                                                <i class="fas fa-share"></i>
+                                                Share
+                                            </button>
+                                            <button class="comment-action-btn">
+                                                <i class="fas fa-flag"></i>
+                                                Report
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+
+                    </div>
+                </div>
+            }
+
+
+        </div>
+    </section>
+</div>

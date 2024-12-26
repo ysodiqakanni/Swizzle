@@ -1,9 +1,75 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿
+@model Swizzle.Models.HomeViewModel
+
+<button onclick="showModal('createCommunityModal')">Create Community</button>
+<button onclick="showModal('signInModal')">Sign In</button>
+<button onclick="showModal('signUpModal')">Sign Up</button>
+
+
+<!-- Post Card -->
+@foreach (var post in Model.TimeLinePosts)
+{
+    <article class="post-card sidebar-section mb-3">
+        <!-- Vote Column -->
+        <div class="vote-column">
+            <button class="vote-btn upvote">
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            <span class="vote-count">@post.VoteCount</span>
+            <button class="vote-btn downvote">
+                <i class="fas fa-arrow-down"></i>
+            </button>
+        </div>
+
+        <!-- Post Content -->
+        <div class="post-content">
+            <!-- Post Header -->
+            <div class="post-header">
+                <a href="c/programming/sometitle" class="subreddit-link"> @post.Community</a>
+                <span class="post-metadata">
+                            • Posted by <a href="@Url.Action("PublicProfile","User", new {username=post.PosterName})" class="user-link">@post.PosterName</a>
+                    <span class="post-time">@post.TimePosted</span>
+                </span>
+            </div>
+
+            <!-- Post Title -->
+            <h3 class="post-title">
+                @* <a href="https://localhost:44311/communityId/posts/username/postId/posttitle">@post.Title</a> *@
+                <a href="/posts/@post.Community/@post.PosterName/@post.TitleUrlFriendly">@post.Title</a>
+            </h3>
+
+            @if (post.HasMedia)
+            {
+                <!-- Post Text/Media -->
+                <div class="post-media">
+                    <img src="@post.MediaUrl" alt="Post thumbnail" class="post-thumbnail">
+                </div>
+            }
+
+
+            <div class="post-text">
+                <p>@post.Description</p>
+            </div>
+
+            <!-- Post Footer -->
+            <div class="post-footer">
+                <button class="post-action-btn">
+                    <i class="fas fa-comment-alt"></i>
+                    <span>@post.CommentCount Comments</span>
+                </button>
+                <button class="post-action-btn">
+                    <i class="fas fa-share"></i>
+                    <span>Share</span>
+                </button>
+                <button class="post-action-btn">
+                    <i class="fas fa-bookmark"></i>
+                    <span>Save</span>
+                </button>
+                <button class="post-action-btn">
+                    <i class="fas fa-ellipsis-h"></i>
+                </button>
+            </div>
+        </div>
+    </article>
+
 }
-
-<div class="text-center">
-    <h1 class="display-4">Welcome to Swizzle!</h1>
-
-    <p>Let's go!</p>
-</div>
