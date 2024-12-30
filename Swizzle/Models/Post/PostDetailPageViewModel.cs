@@ -12,6 +12,7 @@
         public string Content { get; set; }
         public string VoteCount { get; set; }
         public string Community { get; set; }
+        public string CommunityId { get; set; }
         public string PosterName { get; set; }
         public string TimePosted { get; set; }
         public string CommentCount { get; set; }

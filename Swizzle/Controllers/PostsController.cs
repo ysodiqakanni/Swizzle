@@ -30,6 +30,8 @@ namespace Swizzle.Controllers
             {
                 Post = new PostCardModel()
                 {
+                    PostId = "asd23234",
+                    CommunityId = communityId,
                     Title = "10 Must-Know CSS Grid Techniques for Modern Layouts",
                     Content = "Here's a quick guide to using CSS Grid effectively in your projects. I've been using these techniques in production...",
                     HasMedia = false,
@@ -37,7 +39,7 @@ namespace Swizzle.Controllers
                     PosterName = "kompiler",
                     TimePosted = "8 hours ago",
                     CommentCount = "45",
-                    VoteCount = "4.9k"
+                    VoteCount = "49"
                 },
                 Comments = new List<CommentModel>()
                 {
@@ -46,7 +48,7 @@ namespace Swizzle.Controllers
                         Content = "This is a great implementation! Have you considered using SignalR for real-time updates?",
                         PosterName = "dammyrez123",
                         TimePosted = "2 hours ago",
-                        VoteCount = "1.2k",
+                        VoteCount = "12",
                         Replies = new List<CommentModel>()
                         {
                             new CommentModel()
@@ -77,7 +79,7 @@ namespace Swizzle.Controllers
                         Content = "This is a great implementation! Have you considered using SignalR for real-time updates?",
                         PosterName = "dammyrez123",
                         TimePosted = "2 hours ago",
-                        VoteCount = "1.2k",
+                        VoteCount = "700",
                         Replies = new List<CommentModel>()
                         {
                             new CommentModel()
@@ -94,7 +96,7 @@ namespace Swizzle.Controllers
                         Content = "This is a really great implementation! Have you considered using SignalR for real-time updates?",
                         PosterName = "dammyrez123",
                         TimePosted = "2 hours ago",
-                        VoteCount = "1.2k",
+                        VoteCount = "1300",
                         Replies = new List<CommentModel>()
                         {
                             new CommentModel()
@@ -168,6 +170,37 @@ namespace Swizzle.Controllers
                 });
             }  
         }
+
+        // Todo: needs authorize
+        [HttpPost]
+        public async Task<IActionResult> AddComment(string type, string id)
+        {
+            // for a new comment, we need
+            // the postId, content
+            return View();
+        }
+
+        // Todo: needs authorize
+        [HttpPost]
+        public async Task<IActionResult> AddReply(string postId, string commentId)
+        {
+            // for a new reply, we need
+            // the postId, commentId and the content
+            return View();
+        }
+
+        [HttpPost]
+        [Route("posts/{postId}/vote")]
+        public async Task<IActionResult> Upvote(string postId, VoteViewModel model)
+        {
+            // for post, we need the postid
+            return Json(new
+            {
+                success = false,
+                newVoteCount = 23
+            }); 
+        }
+
 
         //[HttpPost]
         //[ValidateAntiForgeryToken]
@@ -263,4 +296,9 @@ namespace Swizzle.Controllers
         //}
 
     }
+    public class VoteViewModel
+    {
+        public bool IsUpvote { get; set; }
+    }
+    
 }

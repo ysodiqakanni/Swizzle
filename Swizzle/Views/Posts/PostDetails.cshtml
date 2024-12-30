@@ -4,22 +4,22 @@
 <link href="~/css/post-detail.css" rel="stylesheet" />
 <div class="post-detail-container">
     <!-- Full Post Content -->
-    <article class="post-detail sidebar-section mb-3">
+    <article class="post-detail sidebar-section mb-3" data-post-id="@Model.Post.PostId" data-post-votes="@Model.Post.VoteCount">
         <div class="vote-column">
-            <button class="vote-btn upvote">
+            <button class="vote-btn upvote post-voting" id="postUpvote">
                 <i class="fas fa-arrow-up"></i>
             </button>
             <span class="vote-count">@Model.Post.VoteCount</span>
-            <button class="vote-btn downvote">
+            <button class="vote-btn downvote post-voting" id="postDownvote">
                 <i class="fas fa-arrow-down"></i>
             </button>
         </div>
 
         <div class="post-content">
             <div class="post-header">
-                <a href="c/@Model.Post.Community/@Model.Post.Community" class="subreddit-link"> @Model.Post.Community</a>
+                <a href="/c/@Model.Post.Community/@Model.Post.Community" class="subreddit-link"> @Model.Post.Community</a>
                 <span class="post-metadata">
-                    • Posted by <a href="#" class="user-link">u/@Model.Post.PosterName</a>
+                    • Posted by <a href="@Url.Action("PublicProfile","User", new {username=Model.Post.PosterName})" class="user-link">u/@Model.Post.PosterName</a>
                     <span class="post-time">@Model.Post.TimePosted</span>
                 </span>
             </div>
@@ -90,7 +90,7 @@
 
                     <div class="comment-content">
                         <div class="comment-header">
-                            <a href="#" class="user-link">u/@comment.PosterName</a>
+                            <a href="@Url.Action("PublicProfile","User", new {username=comment.PosterName})" class="user-link">u/@comment.PosterName</a>
                             <span class="comment-time">@comment.TimePosted</span>
                         </div>
 
@@ -134,7 +134,7 @@
 
                                     <div class="comment-content">
                                         <div class="comment-header">
-                                            <a href="#" class="user-link">@reply.PosterName</a>
+                                            <a href="@Url.Action("PublicProfile","User", new {username=reply.PosterName})" class="user-link">@reply.PosterName</a>
                                             @if (reply.PosterName == Model.Post.PosterName)
                                             {
                                                 <span class="op-tag">OP</span>
@@ -179,3 +179,7 @@
         </div>
     </section>
 </div>
+
+@section Scripts {
+    <script src="~/js/post-details.js"></script>
+}
