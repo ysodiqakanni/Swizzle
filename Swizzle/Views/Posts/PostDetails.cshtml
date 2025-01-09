@@ -4,7 +4,7 @@
 <link href="~/css/post-detail.css" rel="stylesheet" />
 <div class="post-detail-container">
     <!-- Full Post Content -->
-    <article class="post-detail sidebar-section mb-3" data-post-id="@Model.Post.PostId" data-post-votes="@Model.Post.VoteCount">
+    <article id="commentDetails" class="post-detail sidebar-section mb-3" data-post-id="@Model.Post.PostId" data-post-votes="@Model.Post.VoteCount">
         <div class="vote-column">
             <button class="vote-btn upvote post-voting" id="postUpvote">
                 <i class="fas fa-arrow-up"></i>
@@ -71,13 +71,16 @@
             <textarea class="form-control mb-2" rows="4" placeholder="What are your thoughts?"></textarea>
             <button class="btn btn-primary">Comment</button>
         </div>
+        <div id="error-message" style="color: red; display: none;"></div>
 
         <!-- Comments Thread -->
-        <div class="comments-thread">
-
+        <div id="commentsThread" class="comments-thread">
+             
             @foreach (var comment in Model.Comments)
-            {
-                <div class="comment-container">
+            {  
+                <partial name="_CommentCardPartial" for="@comment"/> 
+
+               @*  <div class="comment-container">
                     <div class="vote-column small">
                         <button class="vote-btn upvote">
                             <i class="fas fa-arrow-up"></i>
@@ -173,6 +176,7 @@
 
                     </div>
                 </div>
+ *@
             }
 
 
