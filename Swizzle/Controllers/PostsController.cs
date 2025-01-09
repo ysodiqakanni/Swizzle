@@ -5,7 +5,9 @@ using Swizzle.DTOs.Requests;
 using Swizzle.DTOs.Responses;
 using Swizzle.Models.Post;
 using Swizzle.Services;
+using System.ComponentModel.Design;
 using System.Net.Http;
+using System.Reflection;
 using System.Security.Claims;
 
 namespace Swizzle.Controllers
@@ -45,6 +47,7 @@ namespace Swizzle.Controllers
                 {
                     new CommentModel()
                     {
+                        Id = "xsds122",
                         Content = "This is a great implementation! Have you considered using SignalR for real-time updates?",
                         PosterName = "dammyrez123",
                         TimePosted = "2 hours ago",
@@ -53,6 +56,7 @@ namespace Swizzle.Controllers
                         {
                             new CommentModel()
                             {
+                                Id = "xsds1221",
                                 Content = "Reply 1",
                                 PosterName = "dammyre00",
                                 TimePosted = "1 hours ago",
@@ -60,6 +64,7 @@ namespace Swizzle.Controllers
                             },
                             new CommentModel()
                             {
+                                Id = "xsds1222",
                                 Content = "Reply 2",
                                 PosterName = "dammyre00",
                                 TimePosted = "1 hours ago",
@@ -67,6 +72,7 @@ namespace Swizzle.Controllers
                             },
                             new CommentModel()
                             {
+                                Id = "xsds123",
                                 Content = "Reply 3",
                                 PosterName = "dammyre00",
                                 TimePosted = "1 hours ago",
@@ -76,6 +82,7 @@ namespace Swizzle.Controllers
                     },
                     new CommentModel()
                     {
+                        Id = "xsds123",
                         Content = "This is a great implementation! Have you considered using SignalR for real-time updates?",
                         PosterName = "dammyrez123",
                         TimePosted = "2 hours ago",
@@ -84,6 +91,7 @@ namespace Swizzle.Controllers
                         {
                             new CommentModel()
                             {
+                                Id = "xsds12202",
                                 Content = "Reply 1",
                                 PosterName = "dammyre00",
                                 TimePosted = "1 hours ago",
@@ -93,6 +101,7 @@ namespace Swizzle.Controllers
                     },
                     new CommentModel()
                     {
+                        Id = "xsds135",
                         Content = "This is a really great implementation! Have you considered using SignalR for real-time updates?",
                         PosterName = "dammyrez123",
                         TimePosted = "2 hours ago",
@@ -101,6 +110,7 @@ namespace Swizzle.Controllers
                         {
                             new CommentModel()
                             {
+                                Id = "xsds1229",
                                 Content = "Yes! SignalR is actually on my roadmap for the next iteration. Planning to use it for live vote counts and new comments.",
                                 PosterName = "kompiler",
                                 TimePosted = "14 hours ago",
@@ -173,20 +183,65 @@ namespace Swizzle.Controllers
 
         // Todo: needs authorize
         [HttpPost]
-        public async Task<IActionResult> AddComment(string type, string id)
+        [Route("posts/{postId}/comment")]
+        public async Task<IActionResult> AddComment(string postId, CreateCommentViewModel model)
         {
             // for a new comment, we need
             // the postId, content
-            return View();
+            try
+            {
+                if (string.IsNullOrEmpty(model.Content))
+                {
+                    return BadRequest("Invalid input data.");
+                }
+
+                Thread.Sleep(1000);
+                var comment = new CommentModel()
+                {
+                    Id = "xsds122",
+                    Content = model.Content,
+                    PosterName = "dammyrez123",
+                    TimePosted = "Just now",
+                    VoteCount = "0",
+                };
+                return PartialView("_CommentCardPartial", comment);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "An error occurred while adding the comment.");
+            }
+             
         }
 
         // Todo: needs authorize
         [HttpPost]
-        public async Task<IActionResult> AddReply(string postId, string commentId)
+        [Route("posts/{postId}/reply")]
+        public async Task<IActionResult> AddReply(string postId, CreateReplyViewModel model)
         {
-            // for a new reply, we need
-            // the postId, commentId and the content
-            return View();
+            // need the postId, commentId, replyId?, content
+            try
+            {
+                if (string.IsNullOrEmpty(model.Content))
+                {
+                    return BadRequest("Invalid input data.");
+                }
+
+                Thread.Sleep(1000);
+                // the api should return the new reply Id, postername,
+                var comment = new CommentModel()
+                {
+                    Id = "rep9283",
+                    Content = model.Content,
+                    PosterName = "dammyrez123",
+                    TimePosted = "Just now",
+                    VoteCount = "0",
+                };
+                return PartialView("_ReplyCardPartial", comment);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "An error occurred while adding the comment.");
+            }
         }
 
         [HttpPost]
@@ -199,6 +254,30 @@ namespace Swizzle.Controllers
                 success = false,
                 newVoteCount = 23
             }); 
+        }
+
+        [HttpPost]
+        [Route("posts/{postId}/vote/{commentId}")]
+        public async Task<IActionResult> VoteComment(string postId, string commentId, VoteViewModel model)
+        {
+            // for post, we need the postid
+            return Json(new
+            {
+                success = false,
+                newVoteCount = 23
+            });
+        }
+
+        [HttpPost]
+        [Route("posts/{postId}/vote/{commentId}/{replyId}")]
+        public async Task<IActionResult> VoteReply(string postId, string commentId, string replyId, VoteViewModel model)
+        {
+            // for post, we need the postid
+            return Json(new
+            {
+                success = false,
+                newVoteCount = 23
+            });
         }
 
 
