@@ -125,7 +125,7 @@
         });
     });
 
-    // Handle comment replies
+    // Load comment reply form.
     $(document).on('click', '.comment-action-btn', function () {
         if (!$(this).find('.fa-reply').length) return;
 
@@ -153,7 +153,8 @@
             // then try to fetch the replyId if any.
         const replyForm = $(this).closest('.reply-form');
         const commentCard = $(this).closest('.comment-container');
-        const replyCard = $(this).closest('.comment-replies');
+        //const parentCommentCard = $(this).closest('.comment-replies');
+        const replyCard = $(this).closest('.comment-container.reply-card');
         const reply = replyForm.find('textarea').val().trim();
         if (!reply) {
             alert("Reply is empty!");
@@ -164,35 +165,28 @@
         const commentId = commentCard.data('cm-id');
         let repId = null;
         if (replyCard.length > 0) {
-            repId = replyCard.data('cm-id')
+            repId = replyCard.data('rp-id')
         }
+        console.log("reply id:: ", repId)
 
         $.ajax({
             url: `/posts/${postId}/reply`,
             method: 'POST',
             data: { content: reply, commentId: commentId, replyId: repId },
-            success: function (partialViewHtml) {  
-                commentCard.after(partialViewHtml);
+            success: function (partialViewHtml) {
+                if (!!repId) {
+                    // indent the reply in a nested format
+                    commentCard.after(partialViewHtml);
+                }
+                else {
+                    commentCard.find('.comment-replies').prepend(partialViewHtml);
+                }
+                
+                //parentCommentCard.prepend(partialViewHtml);
+                //commentCard.prepend(partialViewHtml);
+                //commentCard.after(partialViewHtml);
                 replyForm.remove();
-             
-
-            //    const newReply = `
-            //    <div class="comment reply" data-comment-id="${response.replyId}">
-            //        <div class="comment-content">${response.content}</div>
-            //        <div class="comment-metadata">
-            //            <span class="comment-author">${response.author}</span>
-            //            <span class="comment-time">${response.timestamp}</span>
-            //        </div>
-            //        <div class="comment-actions">
-            //            <button class="comment-action-btn">
-            //                <i class="fas fa-reply"></i> Reply
-            //            </button>
-            //            <!-- Other action buttons -->
-            //        </div>
-            //    </div>
-            //`;
-            //    comment.after(newReply);
-            //    replyForm.remove();
+              
             },
             error: function (xhr) {
                 // Handle errors
