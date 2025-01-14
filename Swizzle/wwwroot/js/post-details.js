@@ -167,7 +167,6 @@
         if (replyCard.length > 0) {
             repId = replyCard.data('rp-id')
         }
-        console.log("reply id:: ", repId)
 
         $.ajax({
             url: `/posts/${postId}/reply`,
@@ -179,7 +178,7 @@
                     commentCard.after(partialViewHtml);
                 }
                 else {
-                    commentCard.find('.comment-replies').prepend(partialViewHtml);
+                    commentCard.find('.comment-replies-all').prepend(partialViewHtml);
                 }
                 
                 //parentCommentCard.prepend(partialViewHtml);
