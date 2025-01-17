@@ -1,7 +1,7 @@
 ﻿@model Swizzle.Models.Post.CommentModel
 
 <div class="comment-replies" data-rp-id="@Model.Id">
-    <div class="comment-container reply-card" data-rp-id="@Model.Id">
+    <div class="comment-container reply-card" data-rp-id="@Model.Id" data-rp-vc="@Model.VoteCount">
         <div class="vote-column small">
             <button class="vote-btn reply-voting upvote">
                 <i class="fas fa-arrow-up"></i>

@@ -47,7 +47,7 @@
 
     // Handle comments voting
     // Note: this style of binding the event via the parent helps ensure new children added via the partial views still get triggered on click.
-    $('#commentsThread').on("click", ".vote-btn", (function () {
+    $('#commentsThread').on("click", ".vote-btn.comment-voting", (function () {
         if ($(this).hasClass('active')) {
             // duplicate voting.
             return;
@@ -89,6 +89,43 @@
                 thisBtn.addClass('active');
             }
         });
+    }));
+
+    // Handle Replies Voting
+    $('#commentsThread').on("click", ".vote-btn.reply-voting", (function () {
+        if ($(this).hasClass('active')) {
+            // duplicate voting.
+            return;
+        }
+
+        const isUpvote = $(this).hasClass('upvote');
+        const postId = $('.post-detail').data('post-id');
+        const thisReplyCard = $(this).closest('.comment-container.reply-card');
+        const thisParentCommentCard = $(this).closest('.comment-container.comment-card');
+        const replyId = thisReplyCard.data('rp-id');
+        const commId = thisParentCommentCard.data('cm-id');
+        let current_count = Number(thisReplyCard.data('rp-vc'));
+
+        const thisBtn = $(this);
+        const voteCountElm = $(this).siblings('.vote-count');
+        const otherBtn = $(this).siblings('.vote-btn');
+
+        // instantly update the voteCount
+        const newCount = isUpvote ? current_count + 1 : current_count - 1;
+        voteCountElm.text(formatVoteCount(newCount));
+        thisReplyCard.data('cm-vc', newCount);
+
+        $.ajax({
+            url: `/posts/${postId}/vote/${commId}/${replyId}`,
+            method: 'POST',
+            data: { isUpvote: isUpvote },
+            success: function (response) {
+                // Update button styles
+                otherBtn.removeClass('active');
+                thisBtn.addClass('active');
+            }
+        });
+
     }));
 
     // Handle post comment creation
