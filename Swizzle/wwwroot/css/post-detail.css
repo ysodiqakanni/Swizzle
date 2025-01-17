@@ -186,3 +186,8 @@
         color: #1a1a1b;
     }
 
+.reply-container {
+    display: flex;
+    gap: 8px;
+    padding: 8px 0;
+}

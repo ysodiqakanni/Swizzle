@@ -47,7 +47,7 @@
 
     // Handle comments voting
     // Note: this style of binding the event via the parent helps ensure new children added via the partial views still get triggered on click.
-    $('#commentsThread').on("click", ".vote-btn", (function () {
+    $('#commentsThread').on("click", ".vote-btn.comment-voting", (function () {
         if ($(this).hasClass('active')) {
             // duplicate voting.
             return;
@@ -91,6 +91,43 @@
         });
     }));
 
+    // Handle Replies Voting
+    $('#commentsThread').on("click", ".vote-btn.reply-voting", (function () {
+        if ($(this).hasClass('active')) {
+            // duplicate voting.
+            return;
+        }
+
+        const isUpvote = $(this).hasClass('upvote');
+        const postId = $('.post-detail').data('post-id');
+        const thisReplyCard = $(this).closest('.comment-container.reply-card');
+        const thisParentCommentCard = $(this).closest('.comment-container.comment-card');
+        const replyId = thisReplyCard.data('rp-id');
+        const commId = thisParentCommentCard.data('cm-id');
+        let current_count = Number(thisReplyCard.data('rp-vc'));
+
+        const thisBtn = $(this);
+        const voteCountElm = $(this).siblings('.vote-count');
+        const otherBtn = $(this).siblings('.vote-btn');
+
+        // instantly update the voteCount
+        const newCount = isUpvote ? current_count + 1 : current_count - 1;
+        voteCountElm.text(formatVoteCount(newCount));
+        thisReplyCard.data('cm-vc', newCount);
+
+        $.ajax({
+            url: `/posts/${postId}/vote/${commId}/${replyId}`,
+            method: 'POST',
+            data: { isUpvote: isUpvote },
+            success: function (response) {
+                // Update button styles
+                otherBtn.removeClass('active');
+                thisBtn.addClass('active');
+            }
+        });
+
+    }));
+
     // Handle post comment creation
     $('.comment-input button').click(function () {
         const textarea = $(this).siblings('textarea');
@@ -125,7 +162,7 @@
         });
     });
 
-    // Handle comment replies
+    // Load comment reply form.
     $(document).on('click', '.comment-action-btn', function () {
         if (!$(this).find('.fa-reply').length) return;
 
@@ -153,7 +190,8 @@
             // then try to fetch the replyId if any.
         const replyForm = $(this).closest('.reply-form');
         const commentCard = $(this).closest('.comment-container');
-        const replyCard = $(this).closest('.comment-replies');
+        //const parentCommentCard = $(this).closest('.comment-replies');
+        const replyCard = $(this).closest('.comment-container.reply-card');
         const reply = replyForm.find('textarea').val().trim();
         if (!reply) {
             alert("Reply is empty!");
@@ -164,35 +202,27 @@
         const commentId = commentCard.data('cm-id');
         let repId = null;
         if (replyCard.length > 0) {
-            repId = replyCard.data('cm-id')
+            repId = replyCard.data('rp-id')
         }
 
         $.ajax({
             url: `/posts/${postId}/reply`,
             method: 'POST',
             data: { content: reply, commentId: commentId, replyId: repId },
-            success: function (partialViewHtml) {  
-                commentCard.after(partialViewHtml);
+            success: function (partialViewHtml) {
+                if (!!repId) {
+                    // indent the reply in a nested format
+                    commentCard.after(partialViewHtml);
+                }
+                else {
+                    commentCard.find('.comment-replies-all').prepend(partialViewHtml);
+                }
+                
+                //parentCommentCard.prepend(partialViewHtml);
+                //commentCard.prepend(partialViewHtml);
+                //commentCard.after(partialViewHtml);
                 replyForm.remove();
-             
-
-            //    const newReply = `
-            //    <div class="comment reply" data-comment-id="${response.replyId}">
-            //        <div class="comment-content">${response.content}</div>
-            //        <div class="comment-metadata">
-            //            <span class="comment-author">${response.author}</span>
-            //            <span class="comment-time">${response.timestamp}</span>
-            //        </div>
-            //        <div class="comment-actions">
-            //            <button class="comment-action-btn">
-            //                <i class="fas fa-reply"></i> Reply
-            //            </button>
-            //            <!-- Other action buttons -->
-            //        </div>
-            //    </div>
-            //`;
-            //    comment.after(newReply);
-            //    replyForm.remove();
+              
             },
             error: function (xhr) {
                 // Handle errors

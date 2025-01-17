@@ -74,109 +74,11 @@
         <div id="error-message" style="color: red; display: none;"></div>
 
         <!-- Comments Thread -->
-        <div id="commentsThread" class="comments-thread">
+        <div id="commentsThread" class="replies-thread">
              
             @foreach (var comment in Model.Comments)
             {  
-                <partial name="_CommentCardPartial" for="@comment"/> 
-
-               @*  <div class="comment-container">
-                    <div class="vote-column small">
-                        <button class="vote-btn upvote">
-                            <i class="fas fa-arrow-up"></i>
-                        </button>
-                        <span class="vote-count">@comment.VoteCount</span>
-                        <button class="vote-btn downvote">
-                            <i class="fas fa-arrow-down"></i>
-                        </button>
-                    </div>
-
-                    <div class="comment-content">
-                        <div class="comment-header">
-                            <a href="@Url.Action("PublicProfile","User", new {username=comment.PosterName})" class="user-link">u/@comment.PosterName</a>
-                            <span class="comment-time">@comment.TimePosted</span>
-                        </div>
-
-                        <div class="comment-body">
-                            <p>@comment.Content</p>
-                        </div>
-
-                        <div class="comment-actions">
-                            <button class="comment-action-btn">
-                                <i class="fas fa-reply"></i>
-                                Reply
-                            </button>
-                            <button class="comment-action-btn">
-                                <i class="fas fa-gift"></i>
-                                Award
-                            </button>
-                            <button class="comment-action-btn">
-                                <i class="fas fa-share"></i>
-                                Share
-                            </button>
-                            <button class="comment-action-btn">
-                                <i class="fas fa-flag"></i>
-                                Report
-                            </button>
-                        </div>
-
-                        @foreach (var reply in comment.Replies)
-                        {
-                            <!-- Nested Reply -->
-                            <div class="comment-replies">
-                                <div class="comment-container">
-                                    <div class="vote-column small">
-                                        <button class="vote-btn upvote">
-                                            <i class="fas fa-arrow-up"></i>
-                                        </button>
-                                        <span class="vote-count">@reply.VoteCount</span>
-                                        <button class="vote-btn downvote">
-                                            <i class="fas fa-arrow-down"></i>
-                                        </button>
-                                    </div>
-
-                                    <div class="comment-content">
-                                        <div class="comment-header">
-                                            <a href="@Url.Action("PublicProfile","User", new {username=reply.PosterName})" class="user-link">@reply.PosterName</a>
-                                            @if (reply.PosterName == Model.Post.PosterName)
-                                            {
-                                                <span class="op-tag">OP</span>
-                                            }
-
-                                            <span class="comment-time">@reply.TimePosted</span>
-                                        </div>
-
-                                        <div class="comment-body">
-                                            <p>@reply.Content</p>
-                                        </div>
-
-                                        <div class="comment-actions">
-                                            <button class="comment-action-btn">
-                                                <i class="fas fa-reply"></i>
-                                                Reply
-                                            </button>
-                                            <button class="comment-action-btn">
-                                                <i class="fas fa-gift"></i>
-                                                Award
-                                            </button>
-                                            <button class="comment-action-btn">
-                                                <i class="fas fa-share"></i>
-                                                Share
-                                            </button>
-                                            <button class="comment-action-btn">
-                                                <i class="fas fa-flag"></i>
-                                                Report
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        }
-
-
-                    </div>
-                </div>
- *@
+                <partial name="_CommentCardPartial" for="@comment"/>  
             }
 
 
