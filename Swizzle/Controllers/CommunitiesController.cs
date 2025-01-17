@@ -20,8 +20,8 @@ namespace Swizzle.Controllers
         {
             return View();
         }
-        [Route("{communityName}/{title}")]
-        public async Task<IActionResult> Details()
+        [Route("{communityName}/{id}")]
+        public async Task<IActionResult> Details(string communityName, string id)
         {
             var model = new CommunityPageViewModel()
             {

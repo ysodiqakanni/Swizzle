@@ -1,0 +1,53 @@
+﻿@model Swizzle.Models.Post.CommentModel
+
+<div class="comment-container comment-card" data-cm-id="@Model.Id" data-cm-vc="@Model.VoteCount">
+    <div class="vote-column small">
+        <button class="vote-btn comment-voting upvote">
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        <span class="vote-count">@Model.VoteCount</span>
+        <button class="vote-btn comment-voting downvote">
+            <i class="fas fa-arrow-down"></i>
+        </button>
+    </div>
+
+    <div class="comment-content">
+        <div class="comment-header">
+            <a href="@Url.Action("PublicProfile","User", new {username=Model.PosterName})" class="user-link">u/@Model.PosterName</a>
+            <span class="comment-time">@Model.TimePosted</span>
+        </div>
+
+        <div class="comment-body">
+            <p>@Model.Content</p>
+        </div>
+
+        <div class="comment-actions">
+            <button class="comment-action-btn">
+                <i class="fas fa-reply"></i>
+                Reply
+            </button>
+            <button class="comment-action-btn">
+                <i class="fas fa-gift"></i>
+                Award
+            </button>
+            <button class="comment-action-btn">
+                <i class="fas fa-share"></i>
+                Share
+            </button>
+            <button class="comment-action-btn">
+                <i class="fas fa-flag"></i>
+                Report
+            </button>
+        </div>
+         
+        <div id="repliesThread" class="comment-replies-all" data-pcmt-id="@Model.Id">
+            @foreach (var reply in Model.Replies)
+            {
+                <partial name="_ReplyCardPartial" for="@reply" />
+
+            }
+        </div>
+      
+        
+    </div>
+</div>

@@ -1,0 +1,51 @@
+﻿@model Swizzle.Models.Post.CommentModel
+
+<div class="comment-replies" data-rp-id="@Model.Id">
+    <div class="comment-container reply-card" data-rp-id="@Model.Id" data-rp-vc="@Model.VoteCount">
+        <div class="vote-column small">
+            <button class="vote-btn reply-voting upvote">
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            <span class="vote-count">@Model.VoteCount</span>
+            <button class="vote-btn reply-voting downvote">
+                <i class="fas fa-arrow-down"></i>
+            </button>
+        </div>
+
+        <div class="comment-content">
+            <div class="comment-header">
+                <a href="@Url.Action("PublicProfile","User", new {username=Model.PosterName})" class="user-link">@Model.PosterName</a>
+                @if (Model.PosterName == Model.PosterName)
+                {
+                    <span class="op-tag">OP</span>
+                }
+
+                <span class="comment-time">@Model.TimePosted</span>
+            </div>
+
+            <div class="comment-body">
+                <p>@Model.Content</p>
+            </div>
+
+            <div class="comment-actions">
+                <button class="comment-action-btn">
+                    <i class="fas fa-reply"></i>
+                    Reply
+                </button>
+                <button class="comment-action-btn">
+                    <i class="fas fa-gift"></i>
+                    Award
+                </button>
+                <button class="comment-action-btn">
+                    <i class="fas fa-share"></i>
+                    Share
+                </button>
+                <button class="comment-action-btn">
+                    <i class="fas fa-flag"></i>
+                    Report
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
