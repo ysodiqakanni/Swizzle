@@ -1,4 +1,6 @@
-﻿namespace Swizzle.Models.Post
+﻿using System.Collections.Generic;
+
+namespace Swizzle.Models.Post
 {
     public class PostDetailPageViewModel
     {
@@ -12,22 +14,22 @@
         public string Content { get; set; }
         public string VoteCount { get; set; }
         public string Community { get; set; }
-        public string CommunityId { get; set; }
         public string PosterName { get; set; }
         public string TimePosted { get; set; }
         public string CommentCount { get; set; }
         public bool HasMedia { get; set; }
         public string MediaType { get; set; } = "image";
         public string MediaUrl { get; set; }
+        public string CommunityId { get; internal set; }
     }
     public class CommentModel
     {
-        public string Id { get; set; }
         public string Content { get; set; }
         public string PosterName { get; set; }
         public string TimePosted { get; set; }
         public string VoteCount { get; set; }
 
-        public List<CommentModel> Replies { get; set; } = new List<CommentModel>();
+        public List<CommentModel> Replies { get; set; }
+        public string Id { get; internal set; }
     }
 }

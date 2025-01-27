@@ -3,7 +3,10 @@ using Swizzle.DTOs.Responses;
 using Swizzle.Models.Community;
 using Swizzle.Models.Post;
 using Swizzle.Services;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace Swizzle.Controllers
 {
@@ -103,9 +106,10 @@ namespace Swizzle.Controllers
         public async Task<IActionResult> Search(string query)
         { 
             var response = await _httpClient.GetAsync<List<CommunityListResponseDto>>("communities");
-            var filtered = response.Data.Where(x => x.Name.ToLower().Contains(query.ToLower())).ToList();
+            
             if (response.Success)
             {
+                var filtered = response.Data.Where(x => x.Name.ToLower().Contains(query.ToLower())).ToList();
                 return Json(new
                 {
                     success = true,

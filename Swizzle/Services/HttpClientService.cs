@@ -2,6 +2,12 @@
 using System.Text.Json;
 using System.Text;
 using Swizzle.DTOs.Responses;
+using System.Threading.Tasks;
+using System.Net.Http;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Configuration;
+using System;
+using System.Collections.Generic;
 
 namespace Swizzle.Services
 {
@@ -33,7 +39,7 @@ namespace Swizzle.Services
             _configuration = configuration;
             _logger = logger;
 
-            _baseUrl = "http://134.209.20.62:8600/api/v1/";     //  "http://localhost:8090/api/v1/"; // _configuration["ApiSettings:BaseUrl"];
+            _baseUrl = _configuration["ApiSettings:BaseUrl"];  // "http://134.209.20.62:8600/api/v1/";     //  "http://localhost:8090/api/v1/"; // _configuration["ApiSettings:BaseUrl"];
             _apiKey = "";   // _configuration["ApiSettings:ApiKey"];
 
             ConfigureHttpClient();

@@ -1,4 +1,5 @@
 ﻿using Swizzle.Models.Post;
+using System.Collections.Generic;
 
 namespace Swizzle.Models.Community
 {

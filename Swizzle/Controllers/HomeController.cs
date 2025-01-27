@@ -1,21 +1,37 @@
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Net.Http;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using Swizzle.DTOs.Responses;
 using Swizzle.Models;
 using Swizzle.Models.Post;
+using Swizzle.Services;
 
 namespace Swizzle.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IHttpClientService _httpClient;
 
-        public HomeController(ILogger<HomeController> logger)
+
+        public HomeController(ILogger<HomeController> logger, IHttpClientService httpClient)
         {
             _logger = logger;
+            _httpClient = httpClient;
         }
-
+         
         public async Task<IActionResult> Index()
         {
+            // Todo: call another endpoint to get paginated  timeline posts
+            var timeLinePostsResponse = await _httpClient.GetAsync<List<RecentPostsResponseDto>>("posts/recent"); 
+            if(timeLinePostsResponse.Success == false)
+            {
+                // error loading posts
+                return RedirectToAction("Sorry");   // Todo: what happens on failure?
+            }
             // get timeline posts.
             var timeLinePosts = new List<PostCardViewModel>()
             {
@@ -76,6 +92,21 @@ namespace Swizzle.Controllers
                     VoteCount = "13k"
                 }
             };
+            foreach(var post in timeLinePostsResponse.Data)
+            {
+                timeLinePosts.Add(
+                    new PostCardViewModel
+                    {
+                        Title = post.Title,
+                        Description = post.Content.Body,
+                        HasMedia = post.Content.Type == "media",
+                        Community = post.CommunityName ?? "TestCommunity",
+                        PosterName = post.Author.UserName ?? "testUser",
+                        TimePosted = post.Metadata.TimePostedStr,
+                        CommentCount = post.Stats.CommentCountStr,
+                        VoteCount = post.Stats.VoteCountStr
+                    });
+            }
 
             var model = new HomeViewModel()
             {
