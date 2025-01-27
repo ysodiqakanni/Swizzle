@@ -190,10 +190,7 @@ namespace Swizzle.Services
                     {
                         Success = false,
                         Message = "Error processing response data",
-                        Errors = new Dictionary<string, string[]>
-                {
-                    { "Deserialization", new[] { ex.Message } }
-                }
+                        Errors = new string[] { ex.Message }
                     };
                 }
             }
@@ -209,7 +206,7 @@ namespace Swizzle.Services
             };
         }
 
-        private Dictionary<string, string[]> TryParseErrors(string content)
+        private Dictionary<string, string[]> TryParseErrorsWithCode(string content)
         {
             try
             {
@@ -224,6 +221,18 @@ namespace Swizzle.Services
             };
             }
         }
+        private string[] TryParseErrors(string content)
+        {
+            try
+            {
+                var error = JsonSerializer.Deserialize<string[]>(content);
+                return error ?? new string[] { };
+            }
+            catch
+            {
+                return new string[] { content }; 
+            }
+        }
 
         private BaseApiResponse<T> CreateErrorResponse<T>(string message)
         {
@@ -231,10 +240,7 @@ namespace Swizzle.Services
             {
                 Success = false,
                 Message = message,
-                Errors = new Dictionary<string, string[]>
-            {
-                { "General", new[] { message } }
-            }
+                Errors = new string[] { message }
             };
         }
     }

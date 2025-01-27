@@ -71,14 +71,22 @@
             return;
         }
 
+        // Add rich text editor content if exists
+        const description = tinymce.get("rich-text-editor").getContent();
+        if (!description?.trim()) {
+            showError('Content is required!');
+            resetSubmitButton(submitButton, originalButtonText);
+            return;
+        }
+
 
         // Prepare form data
         const formData = new FormData();
         formData.append('CommunityId', selectedCommunityId);
         formData.append('Title1', titleInput.val().trim());
+        formData.append('CommunityName', $('.community-search').val());
 
-        // Add rich text editor content if exists
-        const description = tinymce.get("rich-text-editor").getContent();
+        
         formData.append('Description', description);
 
         // AJAX submission

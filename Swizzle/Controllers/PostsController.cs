@@ -150,6 +150,15 @@ namespace Swizzle.Controllers
                     Message = "Fill all required fields"
                 }); 
             }
+            if (string.IsNullOrEmpty(model?.Description?.Trim()))
+            {
+                ViewBag.ErrorMessage = "Content is required!";
+                return Json(new
+                {
+                    success = false,
+                    Message = "Fill all required fields"
+                });
+            }
             var userId = "676a3d81755343b5af07c68f";
             //model.CommunityId = "66499a5a463a83871675c01b";
             // fetch the loggedIn user ID: 6649989b81da82407aa94584 for test.
@@ -161,9 +170,11 @@ namespace Swizzle.Controllers
             var payload = new CreatePostRequestDto()
             {
                 CommunityId = model.CommunityId,
+                CommunityName = model.CommunityName,
                 Title = model.Title1,
                 content = model.Description,
-                UserId = userId
+                UserId = userId,
+                PostType = "text"
             };
             var response = await _httpClient.PostAsync<string>("posts", payload);
             
@@ -172,7 +183,7 @@ namespace Swizzle.Controllers
                 return Json(new
                 {
                     success = true,
-                    redirectUrl = Url.Action("PostDetails", "Posts", new { communityId = model.CommunityId, userId = userId, postTitle = model.Title1.ToUrlFriendly() })
+                    redirectUrl = Url.Action("PostDetails", "Posts", new { communityId = model.CommunityName, userId = response.Data, postTitle = model.Title1.ToUrlFriendly() })
                 });
             }
             else
