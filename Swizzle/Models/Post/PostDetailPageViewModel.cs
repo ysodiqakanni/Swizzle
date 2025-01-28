@@ -20,7 +20,7 @@ namespace Swizzle.Models.Post
         public bool HasMedia { get; set; }
         public string MediaType { get; set; } = "image";
         public string MediaUrl { get; set; }
-        public string CommunityId { get; internal set; }
+        public string CommunityId { get; set; }
     }
     public class CommentModel
     {

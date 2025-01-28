@@ -59,6 +59,19 @@ namespace Swizzle.DTOs.Responses
         [JsonPropertyName("Stats")]
         public Stats Stats { get; set; }
     }
+     
+
+    public class SinglePostDetailResponseDto
+    {
+        public string ID { get; set; }
+        public string Title { get; set; }
+        public string CommunityID { get; set; }
+        public string CommunityName { get; set; }
+        public Author Author { get; set; }
+        public Content Content { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public Stats Stats { get; set; }
+    } 
 
     public class Content
     {

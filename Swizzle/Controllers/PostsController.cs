@@ -8,6 +8,7 @@ using Swizzle.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
+using System.Linq;
 using System.Net.Http;
 using System.Reflection;
 using System.Security.Claims;
@@ -28,8 +29,52 @@ namespace Swizzle.Controllers
         {
             return View();
         }
-         
-        [Route("posts/{communityId}/{userId}/{postTitle}")]
+
+        [Route("posts/{communityName}/{postId}/{postTitle}")]
+        public async Task<IActionResult> Details(string communityName, string postId, string postTitle)
+        {
+            // Todo: Maybe return null when not found. And display a cool content.
+            if(string.IsNullOrWhiteSpace(postId))
+            {
+                return NotFound();
+            }
+            var singlePostLiteResponse = await _httpClient.GetAsync<SinglePostDetailResponseDto>($"posts/{postId}");
+            if (singlePostLiteResponse.Success)
+            {
+                
+                var postObject = MapToPostCardModel(singlePostLiteResponse.Data);
+                var model = new PostDetailPageViewModel()
+                {
+                    Post = postObject,
+                    Comments = new List<CommentModel>()
+                };
+                return View(model);
+            }
+            return NotFound();
+        }
+        private PostCardModel MapToPostCardModel(SinglePostDetailResponseDto dto)
+        {
+            if (dto == null) return null;
+
+            return new PostCardModel
+            {
+                PostId = dto.ID,
+                Title = dto.Title,
+                Content = dto.Content?.Body ?? string.Empty,
+                VoteCount = dto.Stats?.VoteCountStr,
+                Community = dto.CommunityName,
+                PosterName = dto.Author?.UserName ?? "Unknown",
+                TimePosted = dto.CreatedAt.ToString("g"), // "g" provides a concise date-time format
+                CommentCount = dto.Stats?.CommentCountStr,
+                HasMedia = dto.Content?.MediaUrls != null && dto.Content.MediaUrls.Any(),
+                MediaType = dto.Content?.Type ?? "text", // Default media type to "text"
+                MediaUrl = dto.Content?.MediaUrls?.FirstOrDefault() ?? string.Empty, // Get the first media URL if available
+                CommunityId = dto.CommunityID
+            };
+        }
+
+
+        [Route("posts/d/{communityId}/{userId}/{postTitle}")]
         public IActionResult PostDetails(string communityId, string userId, string postTitle)
         {
             var post = new PostDetailPageViewModel()
