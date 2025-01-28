@@ -1,6 +1,8 @@
-﻿using Swizzle.Models.Post;
+﻿using Swizzle.Extensions;
+using Swizzle.Models.Post;
 using System;
 using System.Text.Json.Serialization;
+using Swizzle.Extensions;
 
 namespace Swizzle.DTOs.Responses
 {
@@ -100,8 +102,8 @@ namespace Swizzle.DTOs.Responses
         public string TimePostedStr
         {
             get
-            {
-                return CreatedAt.ToString();
+            { 
+                return CreatedAt.ToHumanRelativeTime();
             }
         }
     }

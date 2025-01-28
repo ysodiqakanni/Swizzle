@@ -228,7 +228,7 @@ namespace Swizzle.Controllers
                 return Json(new
                 {
                     success = true,
-                    redirectUrl = Url.Action("PostDetails", "Posts", new { communityId = model.CommunityName, userId = response.Data, postTitle = model.Title1.ToUrlFriendly() })
+                    redirectUrl = Url.Action("Details", "Posts", new { communityName = model.CommunityName, postId = response.Data, postTitle = model.Title1.ToUrlFriendly() })
                 });
             }
             else
@@ -263,6 +263,7 @@ namespace Swizzle.Controllers
                     PosterName = "dammyrez123",
                     TimePosted = "Just now",
                     VoteCount = "0",
+                    Replies = new List<CommentModel>()
                 };
                 return PartialView("_CommentCardPartial", comment);
             }

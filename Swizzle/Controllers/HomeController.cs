@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -33,7 +34,7 @@ namespace Swizzle.Controllers
                 return RedirectToAction("Sorry");   // Todo: what happens on failure?
             }
             // get timeline posts.
-            var timeLinePosts = new List<PostCardViewModel>()
+            var timeLinePostsDummy = new List<PostCardViewModel>()
             {
                 new PostCardViewModel
                 {
@@ -97,7 +98,9 @@ namespace Swizzle.Controllers
                     VoteCount = "13k"
                 }
             };
-            foreach(var post in timeLinePostsResponse.Data)
+
+            var timeLinePosts = new List<PostCardViewModel>();
+            foreach (var post in timeLinePostsResponse.Data)
             {
                 timeLinePosts.Add(
                     new PostCardViewModel
@@ -105,12 +108,13 @@ namespace Swizzle.Controllers
                         PostId = post.ID,
                         Title = post.Title,
                         Description = post.Content.Body,
-                        HasMedia = post.Content.Type == "media",
+                        HasMedia = post.Content?.MediaUrls != null && post.Content.MediaUrls.Any(),
+                        MediaUrl = post.Content?.MediaUrls?.FirstOrDefault() ?? string.Empty,
                         Community = string.IsNullOrEmpty(post.CommunityName) ?"TestCommunity" : post.CommunityName,
                         PosterName = post.Author.UserName ?? "testUser",
                         TimePosted = post.Metadata.TimePostedStr,
                         CommentCount = post.Stats.CommentCountStr,
-                        VoteCount = post.Stats.VoteCountStr
+                        VoteCount = post.Stats.VoteCountStr,
                     });
             }
 
