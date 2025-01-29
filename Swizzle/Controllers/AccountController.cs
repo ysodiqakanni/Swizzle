@@ -6,6 +6,8 @@ using Swizzle.Models;
 using Swizzle.Extensions;
 using Swizzle.Models.Account;
 using Microsoft.AspNetCore.Authorization;
+using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace Swizzle.Controllers
 {

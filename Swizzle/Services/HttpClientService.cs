@@ -2,6 +2,12 @@
 using System.Text.Json;
 using System.Text;
 using Swizzle.DTOs.Responses;
+using System.Threading.Tasks;
+using System.Net.Http;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Configuration;
+using System;
+using System.Collections.Generic;
 
 namespace Swizzle.Services
 {
@@ -33,7 +39,7 @@ namespace Swizzle.Services
             _configuration = configuration;
             _logger = logger;
 
-            _baseUrl = "http://134.209.20.62:8600/api/v1/";     //  "http://localhost:8090/api/v1/"; // _configuration["ApiSettings:BaseUrl"];
+            _baseUrl = _configuration["ApiSettings:BaseUrl"];  // "http://134.209.20.62:8600/api/v1/";     //  "http://localhost:8090/api/v1/"; // _configuration["ApiSettings:BaseUrl"];
             _apiKey = "";   // _configuration["ApiSettings:ApiKey"];
 
             ConfigureHttpClient();
@@ -184,10 +190,7 @@ namespace Swizzle.Services
                     {
                         Success = false,
                         Message = "Error processing response data",
-                        Errors = new Dictionary<string, string[]>
-                {
-                    { "Deserialization", new[] { ex.Message } }
-                }
+                        Errors = new string[] { ex.Message }
                     };
                 }
             }
@@ -203,7 +206,7 @@ namespace Swizzle.Services
             };
         }
 
-        private Dictionary<string, string[]> TryParseErrors(string content)
+        private Dictionary<string, string[]> TryParseErrorsWithCode(string content)
         {
             try
             {
@@ -218,6 +221,18 @@ namespace Swizzle.Services
             };
             }
         }
+        private string[] TryParseErrors(string content)
+        {
+            try
+            {
+                var error = JsonSerializer.Deserialize<string[]>(content);
+                return error ?? new string[] { };
+            }
+            catch
+            {
+                return new string[] { content }; 
+            }
+        }
 
         private BaseApiResponse<T> CreateErrorResponse<T>(string message)
         {
@@ -225,10 +240,7 @@ namespace Swizzle.Services
             {
                 Success = false,
                 Message = message,
-                Errors = new Dictionary<string, string[]>
-            {
-                { "General", new[] { message } }
-            }
+                Errors = new string[] { message }
             };
         }
     }

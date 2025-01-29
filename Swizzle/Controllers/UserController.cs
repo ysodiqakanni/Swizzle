@@ -2,6 +2,8 @@
 using Swizzle.Models.Community;
 using Swizzle.Models.Post;
 using Swizzle.Models.User;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Swizzle.Controllers
 {

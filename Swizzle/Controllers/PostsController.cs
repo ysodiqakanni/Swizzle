@@ -5,10 +5,15 @@ using Swizzle.DTOs.Requests;
 using Swizzle.DTOs.Responses;
 using Swizzle.Models.Post;
 using Swizzle.Services;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.Design;
+using System.Linq;
 using System.Net.Http;
 using System.Reflection;
 using System.Security.Claims;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Swizzle.Controllers
 {
@@ -24,8 +29,52 @@ namespace Swizzle.Controllers
         {
             return View();
         }
-         
-        [Route("posts/{communityId}/{userId}/{postTitle}")]
+
+        [Route("posts/{communityName}/{postId}/{postTitle}")]
+        public async Task<IActionResult> Details(string communityName, string postId, string postTitle)
+        {
+            // Todo: Maybe return null when not found. And display a cool content.
+            if(string.IsNullOrWhiteSpace(postId))
+            {
+                return NotFound();
+            }
+            var singlePostLiteResponse = await _httpClient.GetAsync<SinglePostDetailResponseDto>($"posts/{postId}");
+            if (singlePostLiteResponse.Success)
+            {
+                
+                var postObject = MapToPostCardModel(singlePostLiteResponse.Data);
+                var model = new PostDetailPageViewModel()
+                {
+                    Post = postObject,
+                    Comments = new List<CommentModel>()
+                };
+                return View(model);
+            }
+            return NotFound();
+        }
+        private PostCardModel MapToPostCardModel(SinglePostDetailResponseDto dto)
+        {
+            if (dto == null) return null;
+
+            return new PostCardModel
+            {
+                PostId = dto.ID,
+                Title = dto.Title,
+                Content = dto.Content?.Body ?? string.Empty,
+                VoteCount = dto.Stats?.VoteCountStr,
+                Community = dto.CommunityName,
+                PosterName = dto.Author?.UserName ?? "Unknown",
+                TimePosted = dto.CreatedAt.ToString("g"), // "g" provides a concise date-time format
+                CommentCount = dto.Stats?.CommentCountStr,
+                HasMedia = dto.Content?.MediaUrls != null && dto.Content.MediaUrls.Any(),
+                MediaType = dto.Content?.Type ?? "text", // Default media type to "text"
+                MediaUrl = dto.Content?.MediaUrls?.FirstOrDefault() ?? string.Empty, // Get the first media URL if available
+                CommunityId = dto.CommunityID
+            };
+        }
+
+
+        [Route("posts/d/{communityId}/{userId}/{postTitle}")]
         public IActionResult PostDetails(string communityId, string userId, string postTitle)
         {
             var post = new PostDetailPageViewModel()
@@ -146,6 +195,15 @@ namespace Swizzle.Controllers
                     Message = "Fill all required fields"
                 }); 
             }
+            if (string.IsNullOrEmpty(model?.Description?.Trim()))
+            {
+                ViewBag.ErrorMessage = "Content is required!";
+                return Json(new
+                {
+                    success = false,
+                    Message = "Fill all required fields"
+                });
+            }
             var userId = "676a3d81755343b5af07c68f";
             //model.CommunityId = "66499a5a463a83871675c01b";
             // fetch the loggedIn user ID: 6649989b81da82407aa94584 for test.
@@ -157,9 +215,11 @@ namespace Swizzle.Controllers
             var payload = new CreatePostRequestDto()
             {
                 CommunityId = model.CommunityId,
+                CommunityName = model.CommunityName,
                 Title = model.Title1,
                 content = model.Description,
-                UserId = userId
+                UserId = userId,
+                PostType = "text"
             };
             var response = await _httpClient.PostAsync<string>("posts", payload);
             
@@ -168,7 +228,7 @@ namespace Swizzle.Controllers
                 return Json(new
                 {
                     success = true,
-                    redirectUrl = Url.Action("PostDetails", "Posts", new { communityId = model.CommunityId, userId = userId, postTitle = model.Title1.ToUrlFriendly() })
+                    redirectUrl = Url.Action("Details", "Posts", new { communityName = model.CommunityName, postId = response.Data, postTitle = model.Title1.ToUrlFriendly() })
                 });
             }
             else
@@ -203,6 +263,7 @@ namespace Swizzle.Controllers
                     PosterName = "dammyrez123",
                     TimePosted = "Just now",
                     VoteCount = "0",
+                    Replies = new List<CommentModel>()
                 };
                 return PartialView("_CommentCardPartial", comment);
             }

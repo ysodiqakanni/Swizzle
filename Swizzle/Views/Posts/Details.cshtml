@@ -1,0 +1,90 @@
+﻿@model Swizzle.Models.Post.PostDetailPageViewModel
+
+<link href="~/css/post-detail.css" rel="stylesheet" />
+<div class="post-detail-container">
+    <!-- Full Post Content -->
+    <article id="commentDetails" class="post-detail sidebar-section mb-3" data-post-id="@Model.Post.PostId" data-post-votes="@Model.Post.VoteCount">
+        <div class="vote-column">
+            <button class="vote-btn upvote post-voting" id="postUpvote">
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            <span class="vote-count">@Model.Post.VoteCount</span>
+            <button class="vote-btn downvote post-voting" id="postDownvote">
+                <i class="fas fa-arrow-down"></i>
+            </button>
+        </div>
+
+        <div class="post-content">
+            <div class="post-header">
+                <a href="/c/@Model.Post.Community/@Model.Post.Community" class="subreddit-link"> @Model.Post.Community</a>
+                <span class="post-metadata">
+                    • Posted by <a href="@Url.Action("PublicProfile","User", new {username=Model.Post.PosterName})" class="user-link">u/@Model.Post.PosterName</a>
+                    <span class="post-time">@Model.Post.TimePosted</span>
+                </span>
+            </div>
+
+            <h1 class="post-detail-title">
+                @Model.Post.Title
+            </h1>
+
+            <div class="post-body">
+                @Html.Raw(Model.Post.Content)
+            </div>
+
+            <div class="post-footer">
+                <button class="post-action-btn">
+                    <i class="fas fa-comment-alt"></i>
+                    <span>@Model.Post.CommentCount Comments</span>
+                </button>
+                <button class="post-action-btn">
+                    <i class="fas fa-share"></i>
+                    <span>Share</span>
+                </button>
+                <button class="post-action-btn">
+                    <i class="fas fa-bookmark"></i>
+                    <span>Save</span>
+                </button>
+                <button class="post-action-btn">
+                    <i class="fas fa-ellipsis-h"></i>
+                </button>
+            </div>
+        </div>
+    </article>
+
+    <!-- Comment Section -->
+    <section class="comments-section sidebar-section">
+        <!-- Comment Sort -->
+        <div class="comment-sort mb-3">
+            <span>Sort by: </span>
+            <select class="form-select form-select-sm d-inline-block w-auto">
+                <option>Best</option>
+                <option>Top</option>
+                <option>New</option>
+                <option>Controversial</option>
+                <option>Old</option>
+            </select>
+        </div>
+
+        <!-- Comment Input -->
+        <div class="comment-input mb-4">
+            <textarea class="form-control mb-2" rows="4" placeholder="What are your thoughts?"></textarea>
+            <button class="btn btn-primary">Comment</button>
+        </div>
+        <div id="error-message" style="color: red; display: none;"></div>
+
+        <!-- Comments Thread -->
+        <div id="commentsThread" class="replies-thread">
+
+            @foreach (var comment in Model.Comments)
+            {
+                <partial name="_CommentCardPartial" for="@comment" />
+            }
+
+
+        </div>
+    </section>
+</div>
+
+@section Scripts {
+    <script src="~/js/post-details.js"></script>
+}

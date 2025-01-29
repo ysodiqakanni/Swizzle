@@ -1,26 +1,44 @@
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
+using System.Net.Http;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using Swizzle.DTOs.Responses;
 using Swizzle.Models;
 using Swizzle.Models.Post;
+using Swizzle.Services;
 
 namespace Swizzle.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IHttpClientService _httpClient;
 
-        public HomeController(ILogger<HomeController> logger)
+
+        public HomeController(ILogger<HomeController> logger, IHttpClientService httpClient)
         {
             _logger = logger;
+            _httpClient = httpClient;
         }
-
+         
         public async Task<IActionResult> Index()
         {
+            // Todo: call another endpoint to get paginated  timeline posts
+            var timeLinePostsResponse = await _httpClient.GetAsync<List<RecentPostsResponseDto>>("posts/recent"); 
+            if(timeLinePostsResponse.Success == false)
+            {
+                // error loading posts
+                return RedirectToAction("Sorry");   // Todo: what happens on failure?
+            }
             // get timeline posts.
-            var timeLinePosts = new List<PostCardViewModel>()
+            var timeLinePostsDummy = new List<PostCardViewModel>()
             {
                 new PostCardViewModel
                 {
+                    PostId = "6797294d421a9e5c58d82067",
                     Title = "Building a Swizzle Clone with .NET MVC and Bootstrap",
                     HasMedia = true,
                     MediaType = "image",
@@ -33,6 +51,7 @@ namespace Swizzle.Controllers
                 },
                 new PostCardViewModel
                 {
+                    PostId = "679728dd421a9e5c58d82066",
                     Title = "10 Must-Know CSS Grid Techniques for Modern Layouts",
                     Description = "Here's a quick guide to using CSS Grid effectively in your projects. I've been using these techniques in production...",
                     HasMedia = false,
@@ -44,6 +63,7 @@ namespace Swizzle.Controllers
                 },
                 new PostCardViewModel
                 {
+                    PostId = "67972792edd443f2983dd4a6",
                     Title = "Custom work- how do you make customers understand pricing",
                     Description = "I have small business in which I make hand sewn home goods like lampshades and pillows. I just gave a local business a 75% discount on some custom work and they still haggled and were extremely put out by the fact that I don’t just charge for materials. How do you kindly make people understand that your hand work and time is valuable?\r\n\r\n",
                     HasMedia = false,
@@ -55,6 +75,7 @@ namespace Swizzle.Controllers
                 },
                 new PostCardViewModel
                 {
+                    PostId="679726c1edd443f2983dd4a5",
                     Title = "In real deep",
                     Description = "I really went all in on my SaaS start up. Mid-30s, married with kids. Left a $350k a year job. Dumped $300k+ into it. Ended up taking a lot longer than I thought and it cost me so much to maintain the biz and pay for my cost of living from savings for 3 years without an income. Ended up raising a pre-seed, but it wasn’t enough to pay myself anything. Ended up selling my second home to use the equity for living expenses. I’m now $150k in debt (0% interest), and down to my primary residence and a modest retirement account. We’ve rented out the house and moved to a cheaper place, but it’s not enough.\r\n\r\n",
                     HasMedia = false,
@@ -66,6 +87,7 @@ namespace Swizzle.Controllers
                 },
                 new PostCardViewModel
                 {
+                    PostId="679726c1edd443f2983dd4a5",
                     Title = "AITA for kicking my fiancée out of the house after finding out she lied about being infertile?",
                     Description = "My fiancée (30F) and I (33M) have been together for four years and engaged for one. Early in our relationship, she told me she was infertile due to a medical condition she had in her teens. I was fine with this, as I’ve never really wanted biological kids and figured we could explore adoption if we ever changed our minds.\r\n\r\nFast forward to last week. I came home to a positive pregnancy test sitting on the bathroom counter. At first, I thought she might’ve been helping a friend, but when I confronted her, she broke down and admitted she’s not infertile. She never was. Apparently, she lied because she thought I’d leave her if I knew...",
                     HasMedia = false,
@@ -76,6 +98,25 @@ namespace Swizzle.Controllers
                     VoteCount = "13k"
                 }
             };
+
+            var timeLinePosts = new List<PostCardViewModel>();
+            foreach (var post in timeLinePostsResponse.Data)
+            {
+                timeLinePosts.Add(
+                    new PostCardViewModel
+                    {
+                        PostId = post.ID,
+                        Title = post.Title,
+                        Description = post.Content.Body,
+                        HasMedia = post.Content?.MediaUrls != null && post.Content.MediaUrls.Any(),
+                        MediaUrl = post.Content?.MediaUrls?.FirstOrDefault() ?? string.Empty,
+                        Community = string.IsNullOrEmpty(post.CommunityName) ?"TestCommunity" : post.CommunityName,
+                        PosterName = post.Author.UserName ?? "testUser",
+                        TimePosted = post.Metadata.TimePostedStr,
+                        CommentCount = post.Stats.CommentCountStr,
+                        VoteCount = post.Stats.VoteCountStr,
+                    });
+            }
 
             var model = new HomeViewModel()
             {

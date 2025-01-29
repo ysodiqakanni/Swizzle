@@ -35,7 +35,7 @@
             <!-- Post Title -->
             <h3 class="post-title">
                 @* <a href="https://localhost:44311/communityId/posts/username/postId/posttitle">@post.Title</a> *@
-                <a href="/posts/@post.Community/@post.PosterName/@post.TitleUrlFriendly">@post.Title</a>
+                <a href="/posts/@post.Community/@post.PostId/@post.TitleUrlFriendly">@post.Title</a>
             </h3>
 
             @if (post.HasMedia)
@@ -48,7 +48,7 @@
 
 
             <div class="post-text">
-                <p>@post.Description</p>
+                <p>@Html.Raw(post.Description)</p> 
             </div>
 
             <!-- Post Footer -->
